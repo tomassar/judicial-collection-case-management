@@ -2,11 +2,24 @@ package cases
 
 import "time"
 
-func GetCases() []Case {
+type CaseService interface {
+	GetCases() ([]Case, error)
+}
+type caseService struct {
+	repo CaseRepository
+}
+
+func NewCaseService(repo CaseRepository) CaseService {
+	return &caseService{
+		repo: repo,
+	}
+}
+
+func (s *caseService) GetCases() ([]Case, error) {
 	cases := []Case{
-		{ID: 1, DebtorName: "John Doe", Amount: 1000.50, CreationDate: time.Now(), Status: "In progress", Documents: []string{"Contract", "Invoices"}},
-		{ID: 2, DebtorName: "Jane Smith", Amount: 2000.75, CreationDate: time.Now(), Status: "Pending", Documents: []string{"Agreement", "Receipts"}},
+		{ID: 1, DebtorName: "John Doe", Amount: 100050, CreationDate: time.Now(), Status: "In progress", Documents: []string{"Contract", "Invoices"}},
+		{ID: 2, DebtorName: "Jane Smith", Amount: 200075, CreationDate: time.Now(), Status: "Pending", Documents: []string{"Agreement", "Receipts"}},
 	}
 
-	return cases
+	return cases, nil
 }

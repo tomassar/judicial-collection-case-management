@@ -5,7 +5,7 @@ import "time"
 type Case struct {
 	ID           int       // Identificador único de la causa
 	DebtorName   string    // Nombre del deudor
-	Amount       float64   // Cantidad adeudada
+	Amount       int       // Cantidad adeudada
 	CreationDate time.Time // Fecha de creación de la causa
 	Status       string    // Estado actual del caso (por ejemplo: en proceso, resuelto, archivado, etc.)
 	Documents    []string  // Lista de documentos relacionados con la causa

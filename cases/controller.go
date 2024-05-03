@@ -6,12 +6,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitRoutes(group *gin.RouterGroup) {
-	group.GET("/", getCases)
+type caseController struct {
+	svc CaseService
 }
 
-func getCases(c *gin.Context) {
-	cases := GetCases()
+func NewCaseController(svc CaseService) *caseController {
+	return &caseController{
+		svc: svc,
+	}
+}
 
-	c.JSON(http.StatusOK, cases)
+func (c *caseController) InitRoutes(group *gin.RouterGroup) {
+	group.GET("/", c.getCases)
+}
+
+func (c *caseController) getCases(ctx *gin.Context) {
+	cases, err := c.svc.GetCases()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, cases)
 }
