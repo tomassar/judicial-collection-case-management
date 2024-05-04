@@ -20,5 +20,5 @@ func main() {
 	caseController := cases.NewCaseController(caseService)
 	caseController.InitRoutes(router.Group("/cases"))
 
-	router.Run(":8080")
+	router.Run("0.0.0.0:8080")
 }

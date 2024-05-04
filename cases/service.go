@@ -17,7 +17,7 @@ func NewCaseService(repo CaseRepository) CaseService {
 
 func (s *caseService) GetCases() ([]Case, error) {
 	cases := []Case{
-		{ID: 1, DebtorName: "John Doe", Amount: 100050, CreationDate: time.Now(), Status: "In progress", Documents: []string{"Contract", "Invoices"}},
+		{ID: 1, DebtorName: "Victoria Contreras", Amount: 100050, CreationDate: time.Now(), Status: "In progress", Documents: []string{"Contract", "Invoices"}},
 		{ID: 2, DebtorName: "Jane Smith", Amount: 200075, CreationDate: time.Now(), Status: "Pending", Documents: []string{"Agreement", "Receipts"}},
 	}
 
