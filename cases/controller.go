@@ -1,6 +1,7 @@
 package cases
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -33,6 +34,7 @@ func (c *caseController) getCases(ctx *gin.Context) {
 func (c *caseController) createCase(ctx *gin.Context) {
 	var body *CreateCaseReq
 	if err := ctx.ShouldBindJSON(&body); err != nil {
+		slog.Error("error while decoding body", "error", err)
 		ctx.Error(err)
 		ctx.AbortWithStatus(http.StatusBadRequest)
 		return
@@ -40,6 +42,7 @@ func (c *caseController) createCase(ctx *gin.Context) {
 
 	err := c.svc.CreateCase(ctx, body)
 	if err != nil {
+		slog.Error("error while creating case", "error", err)
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
