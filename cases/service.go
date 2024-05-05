@@ -1,9 +1,12 @@
 package cases
 
-import "time"
+import (
+	"context"
+)
 
 type CaseService interface {
-	GetCases() ([]Case, error)
+	GetCases(ctx context.Context) ([]Case, error)
+	CreateCase(ctx context.Context, body *CreateCaseReq) error
 }
 type caseService struct {
 	repo CaseRepository
@@ -15,11 +18,16 @@ func NewCaseService(repo CaseRepository) CaseService {
 	}
 }
 
-func (s *caseService) GetCases() ([]Case, error) {
-	cases := []Case{
-		{ID: 1, DebtorName: "Victoria Contreras", Amount: 100050, CreationDate: time.Now(), Status: "In progress", Documents: []string{"Contract", "Invoices"}},
-		{ID: 2, DebtorName: "Jane Smith", Amount: 200075, CreationDate: time.Now(), Status: "Pending", Documents: []string{"Agreement", "Receipts"}},
+func (s *caseService) GetCases(ctx context.Context) ([]Case, error) {
+	return s.repo.findAll()
+}
+
+func (s *caseService) CreateCase(ctx context.Context, body *CreateCaseReq) error {
+	c := &Case{
+		DebtorName: body.DebtorName,
+		Amount:     body.Amount,
+		Status:     body.Status,
 	}
 
-	return cases, nil
+	return s.repo.create(c)
 }

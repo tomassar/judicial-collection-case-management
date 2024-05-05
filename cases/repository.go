@@ -3,7 +3,8 @@ package cases
 import "gorm.io/gorm"
 
 type CaseRepository interface {
-	FindAll() ([]Case, error)
+	findAll() ([]Case, error)
+	create(c *Case) error
 }
 
 type caseRepository struct {
@@ -16,12 +17,16 @@ func NewCaseRepository(db *gorm.DB) CaseRepository {
 	}
 }
 
-func (c *caseRepository) FindAll() ([]Case, error) {
+func (r *caseRepository) findAll() ([]Case, error) {
 	var cases []Case
-	err := c.db.Model(&Case{}).Find(&cases).Error
+	err := r.db.Model(&Case{}).Find(&cases).Error
 	if err != nil {
 		return nil, err
 	}
 
 	return cases, nil
+}
+
+func (r *caseRepository) create(c *Case) error {
+	return r.db.Create(c).Error
 }
