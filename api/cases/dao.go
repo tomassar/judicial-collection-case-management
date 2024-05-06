@@ -2,7 +2,7 @@ package cases
 
 import "gorm.io/gorm"
 
-type caseModel struct {
+type Case struct {
 	gorm.Model
 	DebtorName string `json:"debtor_name"` // Nombre del deudor
 	Status     string `json:"status"`      // Estado actual del caso (por ejemplo: en proceso, resuelto, archivado, etc.)
@@ -14,11 +14,19 @@ type caseModel struct {
 	// - Notes: Notas o comentarios adicionales sobre la causa
 }
 
-func (m *caseModel) toEntity() *caseEntity {
+func (m *Case) toEntity() *caseEntity {
 	return &caseEntity{
 		entityCommonAttrs: gormModelToEntity(m.Model),
 		DebtorName:        m.DebtorName,
 	}
+}
+
+func caseModelsToEntities(models []*Case) (ent []*caseEntity) {
+	for _, m := range models {
+		ent = append(ent, m.toEntity())
+	}
+
+	return ent
 }
 
 func gormModelToEntity(m gorm.Model) entityCommonAttrs {

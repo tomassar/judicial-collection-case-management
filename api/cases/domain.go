@@ -25,8 +25,8 @@ type caseEntity struct {
 	// - Notes: Notas o comentarios adicionales sobre la causa
 }
 
-func (e *caseEntity) toModel() *caseModel {
-	return &caseModel{
+func (e *caseEntity) toModel() *Case {
+	return &Case{
 		Model:      entityCommonAttrsToGormModel(e.entityCommonAttrs),
 		DebtorName: e.DebtorName,
 		Status:     e.Status,

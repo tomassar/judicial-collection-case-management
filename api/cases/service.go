@@ -5,7 +5,7 @@ import (
 )
 
 type CaseService interface {
-	GetCases(ctx context.Context) ([]Case, error)
+	GetCases(ctx context.Context) ([]*caseEntity, error)
 	CreateCase(ctx context.Context, body *CreateCaseReq) error
 }
 type caseService struct {
@@ -18,12 +18,12 @@ func NewCaseService(repo CaseRepository) CaseService {
 	}
 }
 
-func (s *caseService) GetCases(ctx context.Context) ([]Case, error) {
+func (s *caseService) GetCases(ctx context.Context) ([]*caseEntity, error) {
 	return s.repo.findAll()
 }
 
 func (s *caseService) CreateCase(ctx context.Context, body *CreateCaseReq) error {
-	c := &Case{
+	c := &caseEntity{
 		DebtorName: body.DebtorName,
 		Status:     body.Status,
 	}
