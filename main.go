@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/tomassar/judicial-collection-case-management/api/auth"
 	"github.com/tomassar/judicial-collection-case-management/api/cases"
 	"github.com/tomassar/judicial-collection-case-management/api/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/database"
@@ -20,17 +21,26 @@ func main() {
 	if err != nil {
 		panic("failed to connect database")
 	}
-
 	router := gin.Default()
 
 	caseRepo := cases.NewCaseRepository(db)
 	caseService := cases.NewCaseService(caseRepo)
 	caseRoutes := cases.NewCaseRoutes(caseService)
-	caseRoutes.Init(router.Group("/cases"))
 
 	userRepo := users.NewUserRepository(db)
 	userService := users.NewUserService(userRepo)
 	userRoutes := users.NewUserRoutes(userService)
+
+	getUserByID := func(userID string) (*users.User, error) {
+		userService.GetUserByID(&gin.Context{}, userID)
+		return nil, nil
+	}
+
+	middleware := &cases.Middleware{
+		Authorization: auth.RequireAuth(getUserByID),
+	}
+
+	caseRoutes.Init(router.Group("/cases"), middleware)
 	userRoutes.Init(router)
 
 	router.Run(os.Getenv("HOST_ADDR"))

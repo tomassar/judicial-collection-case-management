@@ -2,37 +2,68 @@ package auth
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/tomassar/judicial-collection-case-management/api/users"
 )
 
-func RequireAuth(c *gin.Context) {
-	tokenString, err := c.Cookie("Authorization")
-	if err != nil {
-		c.AbortWithStatus(http.StatusUnauthorized)
-		return
-	}
-
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header)
-		}
-
-		return []byte(os.Getenv("SECRET")), nil
-	})
-
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		if float64(time.Now().Unix()) > claims["exp"].(float64) {
+func RequireAuth(getUserByID func(string) (*users.User, error)) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenString, err := c.Cookie("Authorization")
+		if err != nil {
 			c.AbortWithStatus(http.StatusUnauthorized)
+			return
 		}
-	} else {
-		c.AbortWithStatus(http.StatusUnauthorized)
-	}
 
-	fmt.Println("in middleware")
-	c.Next()
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("unexpected signing method: %v", token.Header)
+			}
+
+			return []byte(os.Getenv("SECRET")), nil
+		})
+
+		if err != nil || !token.Valid {
+			slog.Error("error while parsing token", "error", err, "token", token)
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok {
+			slog.Error("error while parsing claims", "error", err)
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		exp, ok := claims["exp"].(float64)
+		if !ok || float64(time.Now().Unix()) > exp {
+			slog.Error("token expired", "error", err)
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		userID, ok := claims["sub"].(string)
+		if !ok {
+			slog.Error("error while parsing user id", "error", err)
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		user, err := getUserByID(userID)
+		if err != nil {
+			slog.Error("error while getting user by id", "error", err)
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		c.Set("user", user)
+
+		c.Next()
+	}
 }

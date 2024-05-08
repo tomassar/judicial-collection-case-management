@@ -1,6 +1,8 @@
 package database
 
 import (
+	"time"
+
 	"github.com/tomassar/judicial-collection-case-management/api/cases"
 	"github.com/tomassar/judicial-collection-case-management/api/users"
 	"gorm.io/driver/postgres"
@@ -10,6 +12,7 @@ import (
 var DB *gorm.DB
 
 func Connect(dsn string) (*gorm.DB, error) {
+	time.Sleep(2 * time.Second)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err

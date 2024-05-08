@@ -5,8 +5,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tomassar/judicial-collection-case-management/api/auth"
 )
+
+type Middleware struct {
+	Authorization gin.HandlerFunc
+}
 
 type caseRoutes struct {
 	svc CaseService
@@ -18,8 +21,8 @@ func NewCaseRoutes(svc CaseService) *caseRoutes {
 	}
 }
 
-func (c *caseRoutes) Init(group *gin.RouterGroup) {
-	group.GET("/", auth.RequireAuth, c.getCases)
+func (c *caseRoutes) Init(group *gin.RouterGroup, middleware *Middleware) {
+	group.GET("/", middleware.Authorization, c.getCases)
 	group.POST("/", c.createCase)
 }
 
