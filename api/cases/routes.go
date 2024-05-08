@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/tomassar/judicial-collection-case-management/api/auth"
 )
 
 type caseRoutes struct {
@@ -18,7 +19,7 @@ func NewCaseRoutes(svc CaseService) *caseRoutes {
 }
 
 func (c *caseRoutes) Init(group *gin.RouterGroup) {
-	group.GET("/", c.getCases)
+	group.GET("/", auth.RequireAuth, c.getCases)
 	group.POST("/", c.createCase)
 }
 

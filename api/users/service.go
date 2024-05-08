@@ -70,3 +70,7 @@ func (s *userService) login(ctx *gin.Context, body *LoginReq) error {
 
 	return nil
 }
+
+func (s *userService) GetUser(ctx *gin.Context, userID string) (*User, error) {
+	return s.repo.findByID(userID)
+}
