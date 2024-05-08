@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.com/tomassar/judicial-collection-case-management/api/cases"
+	"github.com/tomassar/judicial-collection-case-management/api/users"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -16,7 +17,7 @@ func Connect(dsn string) (*gorm.DB, error) {
 	DB = db
 
 	// Migrate the schema
-	err = db.AutoMigrate(&cases.Case{})
+	err = db.AutoMigrate(&cases.Case{}, &users.User{})
 	if err != nil {
 		return nil, err
 	}

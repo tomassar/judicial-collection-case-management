@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/tomassar/judicial-collection-case-management/api/cases"
+	"github.com/tomassar/judicial-collection-case-management/api/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/database"
 	"github.com/tomassar/judicial-collection-case-management/internal/initializers"
 )
@@ -26,6 +27,11 @@ func main() {
 	caseService := cases.NewCaseService(caseRepo)
 	caseRoutes := cases.NewCaseRoutes(caseService)
 	caseRoutes.Init(router.Group("/cases"))
+
+	userRepo := users.NewUserRepository(db)
+	userService := users.NewUserService(userRepo)
+	userRoutes := users.NewUserRoutes(userService)
+	userRoutes.Init(router)
 
 	router.Run(os.Getenv("HOST_ADDR"))
 }
