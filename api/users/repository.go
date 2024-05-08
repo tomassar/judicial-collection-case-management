@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type UserRepository interface {
 	create(c *User) error
+	findByEmail(email string) (*User, error)
 }
 
 type userRepository struct {
@@ -18,4 +19,13 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 
 func (r *userRepository) create(c *User) error {
 	return r.db.Debug().Create(c).Error
+}
+
+func (r *userRepository) findByEmail(email string) (user *User, err error) {
+	err = r.db.Debug().First(&user, "email = ?", email).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
