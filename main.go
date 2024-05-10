@@ -4,18 +4,24 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/tomassar/judicial-collection-case-management/api/auth"
 	"github.com/tomassar/judicial-collection-case-management/api/cases"
 	"github.com/tomassar/judicial-collection-case-management/api/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/database"
-	"github.com/tomassar/judicial-collection-case-management/internal/initializers"
 )
 
-func init() {
-	initializers.LoadEnvVariables()
+func main() {
+	initService()
 }
 
-func main() {
+func initService() {
+	//init env variables with godotenv
+	err := godotenv.Load()
+	if err != nil {
+		panic("failed to load env variables")
+	}
+
 	dsn := os.Getenv("DB")
 	db, err := database.Connect(dsn)
 	if err != nil {
@@ -31,16 +37,15 @@ func main() {
 	userService := users.NewUserService(userRepo)
 	userRoutes := users.NewUserRoutes(userService)
 
-	getUserByID := func(userID uint) (*users.User, error) {
-		return userService.GetUserByID(&gin.Context{}, userID)
-	}
+	authService := auth.NewAuthService(userService)
+	authRoutes := auth.NewAuthRoutes(authService)
 
-	middleware := &cases.Middleware{
-		Authorization: auth.RequireAuth(getUserByID),
+	middleware := cases.Middleware{
+		Authorization: authService.RequireAuth,
 	}
-
-	caseRoutes.Init(router.Group("/cases"), middleware)
+	caseRoutes.Init(router.Group("/cases"), &middleware)
 	userRoutes.Init(router)
+	authRoutes.Init(router)
 
 	router.Run(os.Getenv("HOST_ADDR"))
 }

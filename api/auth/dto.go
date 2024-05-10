@@ -1,4 +1,4 @@
-package users
+package auth
 
 type SignUpReq struct {
 	Email    string `json:"email"`
