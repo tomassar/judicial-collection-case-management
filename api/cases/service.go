@@ -2,10 +2,15 @@ package cases
 
 import (
 	"context"
+	"log/slog"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/tomassar/judicial-collection-case-management/api/users"
 )
 
 type CaseService interface {
-	GetCases(ctx context.Context) ([]*caseEntity, error)
+	GetCases(c *gin.Context) ([]*caseEntity, error)
 	CreateCase(ctx context.Context, body *CreateCaseReq) error
 }
 type caseService struct {
@@ -18,7 +23,23 @@ func NewCaseService(repo CaseRepository) CaseService {
 	}
 }
 
-func (s *caseService) GetCases(ctx context.Context) ([]*caseEntity, error) {
+func (s *caseService) GetCases(c *gin.Context) ([]*caseEntity, error) {
+	userValue, exists := c.Get("user")
+	if !exists {
+		slog.Error("user data not found in context")
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return nil, nil
+	}
+
+	user, ok := userValue.(*users.User)
+	if !ok {
+		slog.Error("user data has unexpected type")
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return nil, nil
+	}
+
+	slog.Info("got user", "user", user)
+
 	return s.repo.findAll()
 }
 

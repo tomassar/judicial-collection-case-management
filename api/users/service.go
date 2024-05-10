@@ -14,7 +14,7 @@ import (
 type UserService interface {
 	signUp(ctx *gin.Context, body *SignUpReq) error
 	login(ctx *gin.Context, body *LoginReq) error
-	GetUserByID(ctx *gin.Context, userID string) (*User, error)
+	GetUserByID(ctx *gin.Context, userID uint) (*User, error)
 }
 type userService struct {
 	repo UserRepository
@@ -72,6 +72,11 @@ func (s *userService) login(ctx *gin.Context, body *LoginReq) error {
 	return nil
 }
 
-func (s *userService) GetUserByID(ctx *gin.Context, userID string) (*User, error) {
-	return s.repo.findByID(userID)
+func (s *userService) GetUserByID(ctx *gin.Context, userID uint) (*User, error) {
+	user, err := s.repo.findByID(userID)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }

@@ -31,9 +31,8 @@ func main() {
 	userService := users.NewUserService(userRepo)
 	userRoutes := users.NewUserRoutes(userService)
 
-	getUserByID := func(userID string) (*users.User, error) {
-		userService.GetUserByID(&gin.Context{}, userID)
-		return nil, nil
+	getUserByID := func(userID uint) (*users.User, error) {
+		return userService.GetUserByID(&gin.Context{}, userID)
 	}
 
 	middleware := &cases.Middleware{

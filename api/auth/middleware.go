@@ -12,7 +12,7 @@ import (
 	"github.com/tomassar/judicial-collection-case-management/api/users"
 )
 
-func RequireAuth(getUserByID func(string) (*users.User, error)) gin.HandlerFunc {
+func RequireAuth(getUserByID func(uint) (*users.User, error)) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString, err := c.Cookie("Authorization")
 		if err != nil {
@@ -48,20 +48,21 @@ func RequireAuth(getUserByID func(string) (*users.User, error)) gin.HandlerFunc 
 			return
 		}
 
-		userID, ok := claims["sub"].(string)
+		userIDFloat, ok := claims["sub"].(float64) // Extract userID as float64
 		if !ok {
-			slog.Error("error while parsing user id", "error", err)
+			slog.Error("error while parsing user id", "userID", userIDFloat)
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
+		userID := uint(userIDFloat)
 
 		user, err := getUserByID(userID)
+
 		if err != nil {
 			slog.Error("error while getting user by id", "error", err)
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
-
 		c.Set("user", user)
 
 		c.Next()
