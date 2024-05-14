@@ -36,8 +36,8 @@ func (h *handler) Init() *gin.Engine {
 	router.POST("/cases", createCase(h.cases))
 
 	//users
-	router.GET("/users/:id", getUserProfileByID(h.users))
-	router.GET("/users/me", middleware.RequireAuth(h.users), getUserProfile())
+	router.GET("/profiles/:id", getUserProfileByID(h.users))
+	router.GET("/profiles/me", middleware.RequireAuth(h.users), getUserProfile())
 
 	//auth
 	router.POST("/login", login(h.auth))
