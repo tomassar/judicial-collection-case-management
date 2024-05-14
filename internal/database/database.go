@@ -3,8 +3,8 @@ package database
 import (
 	"time"
 
-	"github.com/tomassar/judicial-collection-case-management/api/cases"
-	"github.com/tomassar/judicial-collection-case-management/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/api/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

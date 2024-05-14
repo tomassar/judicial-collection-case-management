@@ -14,4 +14,7 @@ WORKDIR /app
 RUN go get github.com/githubnemo/CompileDaemon
 RUN go install github.com/githubnemo/CompileDaemon
 
-ENTRYPOINT CompileDaemon -build="go build -o main -buildvcs=false" -command="./main"
+COPY Makefile /app/Makefile
+
+ENTRYPOINT ["make"]
+#ENTRYPOINT CompileDaemon -build="go build -o main -buildvcs=false" -command="./main"

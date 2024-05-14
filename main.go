@@ -3,12 +3,14 @@ package main
 import (
 	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/tomassar/judicial-collection-case-management/api/auth"
-	"github.com/tomassar/judicial-collection-case-management/api/cases"
-	"github.com/tomassar/judicial-collection-case-management/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/api/auth"
+	"github.com/tomassar/judicial-collection-case-management/internal/api/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/api/lawyers"
+	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/database"
+	"github.com/tomassar/judicial-collection-case-management/internal/http/rest"
+	"github.com/tomassar/judicial-collection-case-management/internal/storage/postgres"
 )
 
 func main() {
@@ -27,25 +29,17 @@ func initService() {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	router := gin.Default()
 
-	caseRepo := cases.NewCaseRepository(db)
-	caseService := cases.NewCaseService(caseRepo)
-	caseRoutes := cases.NewCaseRoutes(caseService)
+	storage := postgres.NewStorage(db)
 
-	userRepo := users.NewUserRepository(db)
-	userService := users.NewUserService(userRepo)
-	userRoutes := users.NewUserRoutes(userService)
+	caseService := cases.NewService(storage.Cases)
+	userService := users.NewService(storage.Users)
+	authService := auth.NewService(userService)
+	lawyerService := lawyers.NewLawyerService(storage.Lawyers)
 
-	authService := auth.NewAuthService(userService)
-	authRoutes := auth.NewAuthRoutes(authService)
-
-	middleware := cases.Middleware{
-		Authorization: authService.RequireAuth,
-	}
-	caseRoutes.Init(router.Group("/cases"), &middleware)
-	userRoutes.Init(router)
-	authRoutes.Init(router)
+	router := rest.
+		NewHandler(caseService, userService, authService, lawyerService).
+		Init()
 
 	router.Run(os.Getenv("HOST_ADDR"))
 }

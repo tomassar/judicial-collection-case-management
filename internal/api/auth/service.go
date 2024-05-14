@@ -13,7 +13,7 @@ import (
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/gothic"
 	"github.com/markbates/goth/providers/google"
-	"github.com/tomassar/judicial-collection-case-management/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -23,21 +23,20 @@ const (
 	IsProd = false
 )
 
-type AuthService interface {
-	signUp(ctx *gin.Context, body *SignUpReq) error
-	login(ctx *gin.Context, body *LoginReq) error
-	RequireAuth(c *gin.Context)
+type Service interface {
+	SignUp(ctx *gin.Context, body *SignUpReq) error
+	Login(ctx *gin.Context, body *LoginReq) error
 }
 
-type authService struct {
-	userService users.UserService
+type service struct {
+	userService users.Service
 }
 
-func NewAuthService(userService users.UserService) AuthService {
-	return &authService{userService: userService}
+func NewService(userService users.Service) Service {
+	return &service{userService: userService}
 }
 
-func (s *authService) signUp(ctx *gin.Context, body *SignUpReq) error {
+func (s *service) SignUp(ctx *gin.Context, body *SignUpReq) error {
 	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
 	if err != nil {
 		slog.Error("failed to hash password", "error", err)
@@ -56,7 +55,7 @@ func (s *authService) signUp(ctx *gin.Context, body *SignUpReq) error {
 	return nil
 }
 
-func (s *authService) login(ctx *gin.Context, body *LoginReq) error {
+func (s *service) Login(ctx *gin.Context, body *LoginReq) error {
 	user, err := s.userService.GetByEmail(ctx, body.Email)
 	if err != nil {
 		return err
