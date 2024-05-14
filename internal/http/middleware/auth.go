@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 )
 
 func RequireAuth(s users.Service) gin.HandlerFunc {

@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/auth"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/cases"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/lawyers"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/http/middleware"
 )
 

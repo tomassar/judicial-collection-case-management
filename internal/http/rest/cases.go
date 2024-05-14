@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
 )
 
 // getCases returns a handler for GET /cases requests

@@ -14,7 +14,7 @@ import (
 	"github.com/tomassar/judicial-collection-case-management/internal/views/components"
 	"github.com/tomassar/judicial-collection-case-management/internal/views/layout"
 
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 )
 
 func Show(user *users.User) templ.Component {

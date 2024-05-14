@@ -3,7 +3,7 @@ package cases
 import (
 	"context"
 
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 )
 
 type Repository interface {

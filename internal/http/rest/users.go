@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/utils"
 	"github.com/tomassar/judicial-collection-case-management/internal/views/user"
 )

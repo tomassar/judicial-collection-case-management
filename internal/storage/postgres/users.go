@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"gorm.io/gorm"
 )
 

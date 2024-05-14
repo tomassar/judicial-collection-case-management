@@ -4,11 +4,11 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/auth"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/cases"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/lawyers"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/database"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/http/rest"
 	"github.com/tomassar/judicial-collection-case-management/internal/storage/postgres"
 )

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tomassar/judicial-collection-case-management/internal/api/auth"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
 )
 
 // login returns a handler for POST /login requests
