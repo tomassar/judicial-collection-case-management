@@ -19,7 +19,7 @@ func main() {
 
 func initService() {
 	//init env variables with godotenv
-	err := godotenv.Load()
+	err := godotenv.Load("/app/.env")
 	if err != nil {
 		panic("failed to load env variables")
 	}
