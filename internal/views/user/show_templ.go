@@ -11,8 +11,10 @@ import "io"
 import "bytes"
 
 import (
-	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/views/components"
 	"github.com/tomassar/judicial-collection-case-management/internal/views/layout"
+
+	"github.com/tomassar/judicial-collection-case-management/internal/api/users"
 )
 
 func Show(user *users.User) templ.Component {
@@ -41,13 +43,17 @@ func Show(user *users.User) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(user.Email)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/user/show.templ`, Line: 10, Col: 28}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/user/show.templ`, Line: 13, Col: 28}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" mi maaano!</h1>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.Input("email", "email").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
