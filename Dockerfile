@@ -3,7 +3,8 @@ FROM golang:latest
 # Environment variables which CompileDaemon requires to run
 ENV PROJECT_DIR=/app \
     GO111MODULE=on \
-    CGO_ENABLED=0
+    CGO_ENABLED=0 \ 
+    GOFLAGS="-buildvcs=false"
 
 # Basic setup of the container
 RUN mkdir /app
@@ -14,7 +15,4 @@ WORKDIR /app
 RUN go get github.com/githubnemo/CompileDaemon
 RUN go install github.com/githubnemo/CompileDaemon
 
-# Set WORKDIR to the directory containing main.go
-WORKDIR /app/cmd/server
-
-ENTRYPOINT CompileDaemon -build="go build -o /app/main -buildvcs=false" -command="/app/main"
+ENTRYPOINT CompileDaemon -build="go build /app/cmd/server/main.go" -command="/app/main"
