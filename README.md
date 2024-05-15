@@ -5,6 +5,6 @@ It connects with Chile's poder judicial platform, allowing it to track the state
 ## Run locally
 - Before running, make sure you have postgresql ready and your env variables correctly set.
 - Also, you should download the correct tailwindcss for your specific os, please refer to tailwind documentation.
-- 
+
 Executing the project locally is quite straightforward, just run:
 ```make dev```
