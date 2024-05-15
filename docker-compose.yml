@@ -1,15 +1,15 @@
 services:
- api:
-    container_name: api
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./:/app
-    depends_on:
-      - postgresdb
+ #api:
+ #   container_name: api
+ #   build:
+ #     context: .
+ #     dockerfile: Dockerfile
+ #   ports:
+ #     - "8080:8080"
+ #   volumes:
+ #     - ./:/app
+ #   depends_on:
+ #     - postgresdb
     #environment:
     #  - POSTGRES_USER=postgres
     #  - POSTGRES_PASSWORD=password

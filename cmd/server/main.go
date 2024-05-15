@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -19,11 +20,12 @@ func main() {
 
 func initService() {
 	//init env variables with godotenv
-	err := godotenv.Load("/app/.env")
+	err := godotenv.Load()
 	if err != nil {
 		panic("failed to load env variables")
 	}
 
+	fmt.Println("DB: ", os.Getenv("DB"))
 	dsn := os.Getenv("DB")
 	db, err := database.Connect(dsn)
 	if err != nil {
@@ -42,4 +44,5 @@ func initService() {
 		Init()
 
 	router.Run(os.Getenv("HOST_ADDR"))
+
 }

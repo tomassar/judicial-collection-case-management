@@ -10,7 +10,7 @@ import (
 
 templ Show(user *users.User) {
     @layout.Base(){
-        <h1>Hola {user.Email} mi manada!</h1>
+        <h1 class="text-orange-950">Hola {user.Email} mi mano!</h1>
         @components.Input("email", "email")
     }   
 }

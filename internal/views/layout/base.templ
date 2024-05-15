@@ -1,9 +1,17 @@
 package layout
 
+import "github.com/tomassar/judicial-collection-case-management/internal/http/middleware"
+
 templ Base() {
     <html>
         <head>
             <title>My Page</title>
+            <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+            if /* os.Getenv("env") */ "production" == "production" {
+                <link rel="stylesheet" href="/static/css/style.min.css" nonce={ middleware.GetTwNonce(ctx) }/>
+            } else {
+                <link rel="stylesheet" href="/static/css/style.css" nonce={ middleware.GetTwNonce(ctx) }/>
+            }
         </head>
         <body>
             topbar

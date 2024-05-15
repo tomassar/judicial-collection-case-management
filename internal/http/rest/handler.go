@@ -31,6 +31,13 @@ func NewHandler(cases cases.Service, users users.Service, auth auth.Service, law
 func (h *handler) Init() *gin.Engine {
 	router := gin.Default()
 
+	router.Static("/static", "./static")
+
+	// set cspmiddleware to all routes
+	router.Use(middleware.CSPMiddleware())
+
+	//home
+	router.GET("/")
 	//cases
 	router.GET("/cases", middleware.RequireAuth(h.users), getCases(h.cases))
 	router.POST("/cases", createCase(h.cases))
