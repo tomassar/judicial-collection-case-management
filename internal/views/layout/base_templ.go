@@ -11,6 +11,7 @@ import "io"
 import "bytes"
 
 import "github.com/tomassar/judicial-collection-case-management/internal/http/middleware"
+import "os"
 
 func Base() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -29,7 +30,7 @@ func Base() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if /* os.Getenv("env") */ "production" == "production" {
+		if os.Getenv("env") == "production" {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/static/css/style.min.css\" nonce=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -37,7 +38,7 @@ func Base() templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(middleware.GetTwNonce(ctx))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout/base.templ`, Line: 11, Col: 106}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout/base.templ`, Line: 12, Col: 106}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -55,7 +56,7 @@ func Base() templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(middleware.GetTwNonce(ctx))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout/base.templ`, Line: 13, Col: 102}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/views/layout/base.templ`, Line: 14, Col: 102}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -66,7 +67,7 @@ func Base() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</head><body>topbar")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</head><body><div class=\"w-full h-[50px] bg-yellow-900 flex gap-4 items-center justify-center\"><a href=\"/\" class=\"text-lg text-blue-700\">Home</a> <a href=\"/about\" class=\"text-blue-700\">About</a> <a href=\"/contact\" class=\"text-blue-700\">Contact</a></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

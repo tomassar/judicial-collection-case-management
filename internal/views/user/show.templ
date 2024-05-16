@@ -2,7 +2,6 @@ package user
 
 import (
     "github.com/tomassar/judicial-collection-case-management/internal/views/layout"
-    "github.com/tomassar/judicial-collection-case-management/internal/views/components"
 
     "github.com/tomassar/judicial-collection-case-management/internal/domain/users"
     
@@ -10,7 +9,8 @@ import (
 
 templ Show(user *users.User) {
     @layout.Base(){
-        <h1 class="text-orange-950">Hola {user.Email} mi mano!</h1>
-        @components.Input("email", "email")
+        <div class="flex flex-col justify-center items-center w-full">
+            <p class="text-orange-700 w-[200px]">Hola {user.Email} mi mano!</p>
+        </div>        
     }   
 }
