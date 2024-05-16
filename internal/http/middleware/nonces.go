@@ -39,21 +39,23 @@ func CSPMiddleware() gin.HandlerFunc {
 		// move to outside the handler to use the same nonces in all responses
 		// TODO: (@tomassar) should set better nonces
 		nonceSet := Nonces{
-			Htmx:            generateRandomString(16),
+			//Htmx:            generateRandomString(16),
 			ResponseTargets: generateRandomString(16),
 			Tw:              generateRandomString(16),
-			HtmxCSSHash:     "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg=",
+			//HtmxCSSHash:     "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg=",
 		}
 
 		// set nonces in context
 		//ctx := context.WithValue(r.Context(), NonceKey, nonceSet)
 		ctx := context.WithValue(c.Request.Context(), NonceKey, nonceSet)
 		// insert the nonces into the content security policy header
-		cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' ; style-src 'nonce-%s' '%s';",
-			nonceSet.Htmx,
-			nonceSet.ResponseTargets,
-			nonceSet.Tw,
-			nonceSet.HtmxCSSHash)
+		/* cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' ; style-src 'nonce-%s' '%s';",
+		nonceSet.Htmx,
+		nonceSet.ResponseTargets,
+		nonceSet.Tw,
+		nonceSet.HtmxCSSHash) */
+		cspHeader := fmt.Sprintf("default-src 'self'; style-src 'nonce-%s';",
+			nonceSet.Tw)
 		//w.Header().Set("Content-Security-Policy", cspHeader)
 		c.Writer.Header().Set("Content-Security-Policy", cspHeader)
 
