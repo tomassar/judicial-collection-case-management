@@ -24,6 +24,7 @@ templ-watch:
 	
 .PHONY: dev
 dev:
+	make tailwind-watch &
 	go build -o . ./cmd/server/main.go && air
 
 .PHONY: build
