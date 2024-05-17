@@ -48,6 +48,7 @@ func (h *handler) Init() *gin.Engine {
 
 	//auth
 	router.POST("/login", login(h.auth))
+	router.GET("/login", loginView())
 	router.POST("/signup", signup(h.auth))
 	return router
 }
