@@ -14,6 +14,7 @@ templ Base() {
             <script src="https://unpkg.com/htmx.org@1.9.12" nonce={ middleware.GetHtmxNonce(ctx) }></script>
             <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js" nonce={ middleware.GetJSONEncNonce(ctx)}></script>
             <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/response-targets.js" nonce={ middleware.GetResponseTargetsNonce(ctx) }></script>
+            <script src="https://unpkg.com/hyperscript.org@0.9.12" nonce={middleware.GetHyperscriptNonce(ctx)}></script>
              if os.Getenv("env") == "production" {
                 <link rel="stylesheet" href="/static/css/style.min.css" nonce={ middleware.GetTwNonce(ctx) }/>
             } else {
