@@ -19,6 +19,7 @@ type Nonces struct {
 	ResponseTargets string
 	Tw              string
 	HtmxCSSHash     string
+	Hyperscript     string
 	JSONEnc         string
 }
 
@@ -44,15 +45,17 @@ func CSPMiddleware() gin.HandlerFunc {
 			ResponseTargets: generateRandomString(16),
 			Tw:              generateRandomString(16),
 			JSONEnc:         generateRandomString(16),
+			Hyperscript:     generateRandomString(16),
 			HtmxCSSHash:     "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg=",
 		}
 
 		ctx := context.WithValue(c.Request.Context(), NonceKey, nonceSet)
 		// insert the nonces into the content security policy header
-		cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' 'nonce-%s'; style-src 'self' 'nonce-%s' '%s'; style-src-attr 'unsafe-inline';",
+		cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' 'nonce-%s' 'nonce-%s'; style-src 'self' 'nonce-%s' '%s'; style-src-attr 'unsafe-inline';",
 			nonceSet.Htmx,
 			nonceSet.JSONEnc,
 			nonceSet.ResponseTargets,
+			nonceSet.Hyperscript,
 			nonceSet.Tw,
 			nonceSet.HtmxCSSHash)
 
@@ -80,9 +83,13 @@ func GetNonces(ctx context.Context) Nonces {
 	return nonces
 }
 
+func GetHyperscriptNonce(ctx context.Context) string {
+	nonceSet := GetNonces(ctx)
+	return nonceSet.Hyperscript
+}
+
 func GetTwNonce(ctx context.Context) string {
 	nonceSet := GetNonces(ctx)
-	fmt.Printf("nonceSet: %+v\n", nonceSet)
 	return nonceSet.Tw
 }
 
