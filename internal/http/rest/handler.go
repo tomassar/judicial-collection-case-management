@@ -50,8 +50,9 @@ func (h *handler) Init() *gin.Engine {
 	router.GET("/profiles/me", middleware.RequireAuth(h.users, h.lawyers), getUserProfile())
 
 	//auth
-	router.POST("/login", login(h.auth))
 	router.GET("/login", middleware.InjectUser(h.users, h.lawyers), getLogin())
+	router.POST("/login", login(h.auth))
+	router.GET("/signup", middleware.InjectUser(h.users, h.lawyers), getSignup())
 	router.POST("/signup", signup(h.auth))
 
 	//dashboard

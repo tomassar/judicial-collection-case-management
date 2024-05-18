@@ -50,6 +50,20 @@ func getLogin() gin.HandlerFunc {
 	}
 }
 
+// getSignup returns a handler for GET /signup requests
+func getSignup() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		//if user is already log in then redirect to /dashboard
+		if u := getUserFromCtx(c); u != nil {
+			slog.Info("User is already logged in", "user", u)
+			c.Redirect(http.StatusFound, "/dashboard")
+			return
+		}
+
+		utils.RenderView(c, authentication.SignUp())
+	}
+}
+
 // signup returns a handler for POST /signup requests
 func signup(s auth.Service) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
