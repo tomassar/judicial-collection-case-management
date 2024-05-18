@@ -5,6 +5,7 @@ import "github.com/tomassar/judicial-collection-case-management/internal/views/l
 templ Show() {
     @layout.Base(){
         <h1 class="text-xl text-blue-700">Dashboard</h1>
+        /* Add a case */
          <form hx-post="/cases" hx-ext="json-enc" hx-swap="none" class="bg-white p-8 rounded shadow-md w-full max-w-md">
             <h2 class="text-2xl font-bold mb-6">Add Debtor</h2>
             <div class="mb-4">
@@ -36,5 +37,24 @@ templ Show() {
                     </button>
             </div>
         </form>
+        /* List cases */
+        <div hx-get="/cases" hx-trigger="load" hx-swap="outerHTML">
+            <h2 class="text-2xl font-bold mb-6">Cases</h2>
+            <table class="w-full table-auto">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Debtor Name</th>
+                        <th class="px-4 py-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#each case}
+                        <tr>
+                            <td class="border px-4 py-2">{{debtor_name}}</td>
+                            <td class="border px-4 py-2">{{status}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
     }
 }
