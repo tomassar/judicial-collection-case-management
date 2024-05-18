@@ -2,6 +2,7 @@ package rest
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"net/http"
 
@@ -39,22 +40,22 @@ func (h *handler) Init() *gin.Engine {
 	router.Use(middleware.CSPMiddleware())
 
 	//home
-	router.GET("/", middleware.InjectUser(h.users), rootPath)
+	router.GET("/", middleware.InjectUser(h.users, h.lawyers), rootPath)
 	//cases
-	router.GET("/cases", middleware.RequireAuth(h.users), getCases(h.cases))
+	router.GET("/cases", middleware.RequireAuth(h.users, h.lawyers), getCases(h.cases))
 	router.POST("/cases", createCase(h.cases))
 
 	//users
 	router.GET("/profiles/:id", getUserProfileByID(h.users))
-	router.GET("/profiles/me", middleware.RequireAuth(h.users), getUserProfile())
+	router.GET("/profiles/me", middleware.RequireAuth(h.users, h.lawyers), getUserProfile())
 
 	//auth
 	router.POST("/login", login(h.auth))
-	router.GET("/login", middleware.InjectUser(h.users), getLogin())
+	router.GET("/login", middleware.InjectUser(h.users, h.lawyers), getLogin())
 	router.POST("/signup", signup(h.auth))
 
 	//dashboard
-	router.GET("/dashboard", middleware.RequireAuth(h.users), getDashboard())
+	router.GET("/dashboard", middleware.RequireAuth(h.users, h.lawyers), getDashboard())
 
 	return router
 }
@@ -78,4 +79,15 @@ func getUserFromCtx(ctx context.Context) *users.User {
 	}
 
 	return user
+}
+
+var ErrLawyerIDNotfoundInContext = errors.New("lawyer not found in context")
+
+func getLawyerIDFromCtx(ctx context.Context) (uint, error) {
+	id, ok := ctx.Value("lawyerID").(uint)
+	if !ok {
+		return 0, ErrLawyerIDNotfoundInContext
+	}
+
+	return id, nil
 }

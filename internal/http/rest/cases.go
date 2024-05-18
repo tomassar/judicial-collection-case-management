@@ -33,7 +33,16 @@ func createCase(s cases.Service) gin.HandlerFunc {
 			return
 		}
 
-		err := s.CreateCase(ctx, body)
+		lawyerID, err := getLawyerIDFromCtx(ctx)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{
+				"error": "Failed to get lawyer ID",
+			})
+			return
+		}
+
+		body.LawyerID = lawyerID
+		err = s.CreateCase(ctx, body)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{
 				"error": "Failed to create case",

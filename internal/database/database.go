@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -20,7 +21,7 @@ func Connect(dsn string) (*gorm.DB, error) {
 	DB = db
 
 	// Migrate the schema
-	err = db.AutoMigrate(&cases.Case{}, &users.User{})
+	err = db.AutoMigrate(&cases.Case{}, &users.User{}, &lawyers.Lawyer{})
 	if err != nil {
 		return nil, err
 	}

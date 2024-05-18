@@ -32,6 +32,7 @@ func (s *service) CreateCase(ctx context.Context, body *CreateCaseReq) error {
 	c := &Case{
 		DebtorName: body.DebtorName,
 		Status:     body.Status,
+		LawyerID:   body.LawyerID,
 	}
 
 	return s.repo.Create(c)

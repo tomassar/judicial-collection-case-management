@@ -9,10 +9,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 )
 
-func RequireAuth(s users.Service) gin.HandlerFunc {
+func RequireAuth(s users.Service, l lawyers.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString, err := c.Cookie("Authorization")
 		if err != nil {
@@ -64,6 +65,14 @@ func RequireAuth(s users.Service) gin.HandlerFunc {
 
 		}
 		c.Set("user", user)
+		lawyer, err := l.GetLawyerByUserID(c, userID)
+		if err != nil {
+			slog.Error("error while getting lawyer by user id", "error", err)
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		c.Set("lawyerID", lawyer.ID)
 
 		c.Next()
 	}
@@ -71,7 +80,7 @@ func RequireAuth(s users.Service) gin.HandlerFunc {
 }
 
 // InjectUser injects user in context regardless of the token
-func InjectUser(s users.Service) gin.HandlerFunc {
+func InjectUser(s users.Service, l lawyers.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString, err := c.Cookie("Authorization")
 		if err != nil {
@@ -116,6 +125,15 @@ func InjectUser(s users.Service) gin.HandlerFunc {
 
 		}
 		c.Set("user", user)
+
+		lawyer, err := l.GetLawyerByUserID(c, userID)
+		if err != nil {
+			slog.Error("error while getting lawyer by user id", "error", err)
+			c.Next()
+			return
+		}
+
+		c.Set("lawyerID", lawyer.ID)
 
 		c.Next()
 	}
