@@ -25,7 +25,7 @@ func Login(fromProtected bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"h-screen p-4 bg-base-300 shadow-xl flex justify-center items-center\"><div class=\"w-full max-w-md flex\"><form hx-post=\"/login\" hx-ext=\"json-enc\" class=\"rounded-xl drop-shadow-xl flex flex-col gap-4 p-8\"><label class=\"flex flex-col justify-start gap-2\">Email: <input class=\"input input-bordered input-primary bg-slate-800\" type=\"email\" name=\"email\" required autofocus")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"h-[calc(100vh-50px)] w-[100vw] p-4 bg-base-300 shadow-xl flex justify-center items-center\"><div class=\"w-full flex justify-center items-center\"><form hx-post=\"/login\" hx-ext=\"json-enc\" class=\"rounded-xl flex flex-col gap-4 p-8\"><label class=\"flex flex-col justify-start gap-2\">Email: <input class=\"bg-slate-800 rounded-md text-white\" type=\"email\" name=\"email\" required autofocus")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,7 +41,7 @@ func Login(fromProtected bool) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("></label> <label class=\"flex flex-col justify-start gap-2 relative\">Password: <input class=\"input input-bordered input-primary bg-slate-800\" type=\"password\" name=\"password\" required minlength=\"6\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("></label> <label class=\"flex flex-col justify-start gap-2 relative\">Password: <input class=\"bg-slate-800 rounded-md text-white\" type=\"password\" name=\"password\" required minlength=\"6\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -57,7 +57,7 @@ func Login(fromProtected bool) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("></label><footer class=\"justify-end\"><button class=\"badge badge-primary px-6 py-4 hover:scale-[1.1]\" type=\"submit\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("></label><footer class=\"justify-end\"><button class=\"border text-white rounded-md bg-slate-700 px-6 py-4 hover:scale-[1.05] transition-all ease-in\" type=\"submit\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

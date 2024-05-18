@@ -106,7 +106,15 @@ func Base() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</head><body class=\"min-h-[1000px]\"><!-- top bar --><div class=\"w-full h-full bg-yellow-900 flex gap-4 items-center justify-center\"><a href=\"/\" class=\"text-lg text-blue-700\">Home</a> <a href=\"/about\" class=\"text-blue-700\">About</a> <a href=\"/contact\" class=\"text-blue-700\">Contact</a></div><main class=\"flex-grow container\"></main></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</head><body class=\"min-h-screen\"><!-- top bar --><div class=\"w-full h-[50px] bg-yellow-900 flex gap-4 items-center justify-center\"><a href=\"/\" class=\"text-lg text-blue-700\">Home</a> <a href=\"/about\" class=\"text-blue-700\">About</a> <a href=\"/contact\" class=\"text-blue-700\">Contact</a></div><main class=\"flex-grow container\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ_7745c5c3_Var1.Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
