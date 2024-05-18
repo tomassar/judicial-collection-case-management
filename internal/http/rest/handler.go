@@ -2,6 +2,8 @@ package rest
 
 import (
 	"context"
+	"log/slog"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
@@ -37,7 +39,7 @@ func (h *handler) Init() *gin.Engine {
 	router.Use(middleware.CSPMiddleware())
 
 	//home
-	router.GET("/")
+	router.GET("/", middleware.InjectUser(h.users), rootPath)
 	//cases
 	router.GET("/cases", middleware.RequireAuth(h.users), getCases(h.cases))
 	router.POST("/cases", createCase(h.cases))
@@ -48,11 +50,32 @@ func (h *handler) Init() *gin.Engine {
 
 	//auth
 	router.POST("/login", login(h.auth))
-	router.GET("/login", loginView())
+	router.GET("/login", middleware.InjectUser(h.users), getLogin())
 	router.POST("/signup", signup(h.auth))
+
+	//dashboard
+	router.GET("/dashboard", middleware.RequireAuth(h.users), getDashboard())
+
 	return router
 }
 
+func rootPath(c *gin.Context) {
+	//if user is already log in then redirect to /dashboard
+	if u := getUserFromCtx(c); u != nil {
+		slog.Info("User is already logged in", "user", u)
+		c.Redirect(http.StatusFound, "/dashboard")
+		return
+	}
+
+	c.Redirect(http.StatusOK, "/login")
+}
+
 func getUserFromCtx(ctx context.Context) *users.User {
-	return ctx.Value("user").(*users.User)
+	user, ok := ctx.Value("user").(*users.User)
+	slog.Info("getUserFromCtx slog", "user", user, "ok", ok)
+	if !ok {
+		return nil
+	}
+
+	return user
 }

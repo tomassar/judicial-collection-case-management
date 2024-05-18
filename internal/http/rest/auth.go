@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -33,9 +34,15 @@ func login(s auth.Service) gin.HandlerFunc {
 }
 
 // login returns a handler for GET /login requests
-func loginView() gin.HandlerFunc {
+func getLogin() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		//renders the login page located in views/login_templ.go
+		//if user is already log in then redirect to /dashboard
+		if u := getUserFromCtx(c); u != nil {
+			slog.Info("User is already logged in", "user", u)
+			c.Redirect(http.StatusFound, "/dashboard")
+			return
+		}
+
 		utils.RenderView(c, authentication.LoginIndex())
 	}
 }
