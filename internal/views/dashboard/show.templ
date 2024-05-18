@@ -5,5 +5,36 @@ import "github.com/tomassar/judicial-collection-case-management/internal/views/l
 templ Show() {
     @layout.Base(){
         <h1 class="text-xl text-blue-700">Dashboard</h1>
+         <form hx-post="/cases" hx-ext="json-enc" hx-swap="none" class="bg-white p-8 rounded shadow-md w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6">Add Debtor</h2>
+            <div class="mb-4">
+                <label for="debtor_name" class="block text-gray-700 font-bold mb-2">Debtor Name:</label>
+                <input type="text" id="debtor_name" name="debtor_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required/>
+            </div>
+            <div class="mb-6">
+                <label for="status" class="block text-gray-700 font-bold mb-2">Status:</label>
+                <select id="status" name="statu s" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-between">
+                <button
+                    hx-post="/cases"
+                    hx-swap="none"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                    _="on htmx:send
+                            put 'Creating...' into my innerHTML
+                        on htmx:afterRequest
+                            put 'Create' into my innerHTML
+                            add .bg-green-500 to me
+                            wait 1s
+                            remove .bg-green-500 from me"
+                    >
+                        Create
+                    </button>
+            </div>
+        </form>
     }
 }
