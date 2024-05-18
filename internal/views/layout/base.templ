@@ -3,32 +3,33 @@ package layout
 import "github.com/tomassar/judicial-collection-case-management/internal/http/middleware"
 import "os"
 
+
 templ Base() {
-    <html>
+    <!DOCTYPE html>
+    <html class="h-full bg-white">
         <head>
             <title>Judicial Collection Case Manager</title>
+            <meta charset="UTF-8"/>
             <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
-            if os.Getenv("env") == "production" {
+            <script src="https://unpkg.com/htmx.org@1.9.12" nonce={ middleware.GetHtmxNonce(ctx) }></script>
+            <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js" nonce={ middleware.GetJSONEncNonce(ctx)}></script>
+            <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/response-targets.js" nonce={ middleware.GetResponseTargetsNonce(ctx) }></script>
+             if os.Getenv("env") == "production" {
                 <link rel="stylesheet" href="/static/css/style.min.css" nonce={ middleware.GetTwNonce(ctx) }/>
             } else {
                 <link rel="stylesheet" href="/static/css/style.css" nonce={ middleware.GetTwNonce(ctx) }/>
             }
-            <script src="https://unpkg.com/htmx.org@1.9.12" nonce={ middleware.GetHtmxNonce(ctx) } integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
-            <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js" nonce={ middleware.GetJSONEncNonce(ctx)}></script>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    console.log("htmx initialized:", htmx);
-                });
-            </script>
-        </head>
-        <body>
-        /* top bar */
-            <div class="w-full h-[50px] bg-yellow-900 flex gap-4 items-center justify-center">
+        </head> 
+        <body class="min-h-[1000px]">
+        <!-- top bar -->
+            <div class="w-full h-full bg-yellow-900 flex gap-4 items-center justify-center">
                 <a href="/" class="text-lg text-blue-700">Home</a>
                 <a href="/about" class="text-blue-700">About</a>
                 <a href="/contact" class="text-blue-700">Contact</a>
             </div>
-            {children...}   
+            <main class="flex-grow container">
+
+            </main>
         </body>
     </html>
 }

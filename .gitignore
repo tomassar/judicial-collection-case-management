@@ -2,3 +2,4 @@ main
 /bin
 .env
 tmp
+/node_modules

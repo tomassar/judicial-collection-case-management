@@ -49,7 +49,7 @@ func CSPMiddleware() gin.HandlerFunc {
 
 		ctx := context.WithValue(c.Request.Context(), NonceKey, nonceSet)
 		// insert the nonces into the content security policy header
-		cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' 'nonce-%s'; style-src 'self' 'nonce-%s' '%s';",
+		cspHeader := fmt.Sprintf("default-src 'self'; script-src 'nonce-%s' 'nonce-%s' 'nonce-%s'; style-src 'self' 'nonce-%s' '%s'; style-src-attr 'unsafe-inline';",
 			nonceSet.Htmx,
 			nonceSet.JSONEnc,
 			nonceSet.ResponseTargets,
