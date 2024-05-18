@@ -29,7 +29,10 @@ func login(s auth.Service) gin.HandlerFunc {
 			return
 		}
 
-		c.Status(http.StatusOK)
+		c.Header("HX-Redirect", "/dashboard")
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Login successful",
+		})
 	}
 }
 

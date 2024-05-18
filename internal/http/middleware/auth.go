@@ -63,7 +63,6 @@ func RequireAuth(s users.Service) gin.HandlerFunc {
 			return
 
 		}
-		slog.Info("user before setting in context", "user", user)
 		c.Set("user", user)
 
 		c.Next()
@@ -116,7 +115,6 @@ func InjectUser(s users.Service) gin.HandlerFunc {
 			return
 
 		}
-		slog.Info("user before setting in context", "user", user)
 		c.Set("user", user)
 
 		c.Next()

@@ -1,5 +1,9 @@
 package dashboard
 
-templ showAll() {
-    return <h1>Dashboard</h1>
+import "github.com/tomassar/judicial-collection-case-management/internal/views/layout"
+
+templ Show() {
+    @layout.Base(){
+        <h1 class="text-xl text-blue-700">Dashboard</h1>
+    }
 }
