@@ -13,6 +13,7 @@ import (
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/gothic"
 	"github.com/markbates/goth/providers/google"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -29,11 +30,15 @@ type Service interface {
 }
 
 type service struct {
-	userService users.Service
+	userService   users.Service
+	lawyerService lawyers.Service
 }
 
-func NewService(userService users.Service) Service {
-	return &service{userService: userService}
+func NewService(userService users.Service, lawyerService lawyers.Service) Service {
+	return &service{
+		userService:   userService,
+		lawyerService: lawyerService,
+	}
 }
 
 func (s *service) SignUp(ctx *gin.Context, body *SignUpReq) error {
@@ -48,6 +53,13 @@ func (s *service) SignUp(ctx *gin.Context, body *SignUpReq) error {
 
 	user := &users.User{Email: body.Email, Password: string(hash)}
 	err = s.userService.Create(ctx, user)
+	if err != nil {
+		return err
+	}
+
+	err = s.lawyerService.CreateLawyer(ctx, &lawyers.CreateLawyerReq{
+		UserID: user.ID,
+	})
 	if err != nil {
 		return err
 	}

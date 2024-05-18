@@ -16,6 +16,7 @@ type Case struct {
 	// - Court: Tribunal al que pertenece el caso
 	// - NextHearingDate: Fecha de la próxima audiencia
 	// - Notes: Notas o comentarios adicionales sobre la causa
+	LawyerID  uint           `json:"lawyer_id"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`

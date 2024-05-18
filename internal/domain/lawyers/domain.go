@@ -8,7 +8,7 @@ import (
 
 type Lawyer struct {
 	ID          uint           `gorm:"primarykey" json:"id"`
-	UserID      int            `json:"user_id" gorm:"unique"`
+	UserID      uint           `json:"user_id" gorm:"unique"`
 	FullName    string         `json:"full_name"`
 	PhoneNumber string         `json:"phone_number"`
 	Rut         string         `json:"rut"`

@@ -36,8 +36,8 @@ func initService() {
 
 	caseService := cases.NewService(storage.Cases)
 	userService := users.NewService(storage.Users)
-	authService := auth.NewService(userService)
 	lawyerService := lawyers.NewLawyerService(storage.Lawyers)
+	authService := auth.NewService(userService, lawyerService)
 
 	router := rest.
 		NewHandler(caseService, userService, authService, lawyerService).

@@ -2,8 +2,6 @@ package cases
 
 import (
 	"context"
-
-	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 )
 
 type Repository interface {
@@ -37,8 +35,4 @@ func (s *service) CreateCase(ctx context.Context, body *CreateCaseReq) error {
 	}
 
 	return s.repo.Create(c)
-}
-
-func getUserFromCtx(ctx context.Context) *users.User {
-	return ctx.Value("user").(*users.User)
 }
