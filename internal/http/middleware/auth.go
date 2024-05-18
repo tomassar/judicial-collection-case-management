@@ -63,9 +63,62 @@ func RequireAuth(s users.Service) gin.HandlerFunc {
 			return
 
 		}
+		slog.Info("user before setting in context", "user", user)
 		c.Set("user", user)
 
 		c.Next()
 	}
 
+}
+
+// InjectUser injects user in context regardless of the token
+func InjectUser(s users.Service) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenString, err := c.Cookie("Authorization")
+		if err != nil {
+			c.Next()
+			return
+		}
+
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("unexpected signing method: %v", token.Header)
+			}
+
+			return []byte(os.Getenv("SECRET")), nil
+		})
+
+		if err != nil || !token.Valid {
+			slog.Error("error while parsing token", "error", err, "token", token)
+			c.Next()
+			return
+		}
+
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok {
+			slog.Error("error while parsing claims", "error", err)
+			c.Next()
+			return
+		}
+
+		userIDFloat, ok := claims["sub"].(float64) // Extract userID as float64
+		if !ok {
+			slog.Error("error while parsing user id", "userID", userIDFloat)
+			c.Next()
+			return
+		}
+		userID := uint(userIDFloat)
+
+		user, err := s.GetUserByID(c, userID)
+		if err != nil {
+			slog.Error("error while getting user by id", "error", err)
+			c.Next()
+			return
+
+		}
+		slog.Info("user before setting in context", "user", user)
+		c.Set("user", user)
+
+		c.Next()
+	}
 }
