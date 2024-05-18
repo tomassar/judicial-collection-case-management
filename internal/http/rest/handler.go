@@ -34,29 +34,33 @@ func NewHandler(cases cases.Service, users users.Service, auth auth.Service, law
 func (h *handler) Init() *gin.Engine {
 	router := gin.Default()
 
+	//middlewares
+	injectUser := middleware.InjectUser(h.users, h.lawyers)
+	requireAuth := middleware.RequireAuth(h.users, h.lawyers)
+
 	router.Static("/static", "./static")
 
 	// set cspmiddleware to all routes
 	router.Use(middleware.CSPMiddleware())
 
 	//home
-	router.GET("/", middleware.InjectUser(h.users, h.lawyers), rootPath)
+	router.GET("/", injectUser, rootPath)
 	//cases
-	router.GET("/cases", middleware.RequireAuth(h.users, h.lawyers), getCases(h.cases))
-	router.POST("/cases", createCase(h.cases))
+	router.GET("/cases", requireAuth, getCases(h.cases))
+	router.POST("/cases", injectUser, createCase(h.cases))
 
 	//users
 	router.GET("/profiles/:id", getUserProfileByID(h.users))
-	router.GET("/profiles/me", middleware.RequireAuth(h.users, h.lawyers), getUserProfile())
+	router.GET("/profiles/me", requireAuth, getUserProfile())
 
 	//auth
-	router.GET("/login", middleware.InjectUser(h.users, h.lawyers), getLogin())
+	router.GET("/login", injectUser, getLogin())
 	router.POST("/login", login(h.auth))
-	router.GET("/signup", middleware.InjectUser(h.users, h.lawyers), getSignup())
+	router.GET("/signup", injectUser, getSignup())
 	router.POST("/signup", signup(h.auth))
 
 	//dashboard
-	router.GET("/dashboard", middleware.RequireAuth(h.users, h.lawyers), getDashboard())
+	router.GET("/dashboard", requireAuth, getDashboard())
 
 	return router
 }
@@ -84,11 +88,11 @@ func getUserFromCtx(ctx context.Context) *users.User {
 
 var ErrLawyerIDNotfoundInContext = errors.New("lawyer not found in context")
 
-func getLawyerIDFromCtx(ctx context.Context) (uint, error) {
-	id, ok := ctx.Value("lawyerID").(uint)
+func getLawyerIDFromCtx(c *gin.Context) (uint, error) {
+	id, ok := c.Get("lawyerID")
 	if !ok {
 		return 0, ErrLawyerIDNotfoundInContext
 	}
 
-	return id, nil
+	return id.(uint), nil
 }
