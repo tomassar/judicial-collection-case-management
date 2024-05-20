@@ -8,6 +8,7 @@ import (
 	"github.com/tomassar/judicial-collection-case-management/internal/database"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/dashboard"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/http/rest"
@@ -38,9 +39,10 @@ func initService() {
 	userService := users.NewService(storage.Users)
 	lawyerService := lawyers.NewLawyerService(storage.Lawyers)
 	authService := auth.NewService(userService, lawyerService)
+	dashboardService := dashboard.NewService(caseService)
 
 	router := rest.
-		NewHandler(caseService, userService, authService, lawyerService).
+		NewHandler(caseService, userService, authService, lawyerService, dashboardService).
 		Init()
 
 	router.Run(os.Getenv("HOST_ADDR"))

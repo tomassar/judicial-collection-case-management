@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
+	"github.com/tomassar/judicial-collection-case-management/internal/templates/authentication"
 	"github.com/tomassar/judicial-collection-case-management/internal/utils"
-	"github.com/tomassar/judicial-collection-case-management/internal/views/authentication"
 )
 
 // login returns a handler for POST /login requests

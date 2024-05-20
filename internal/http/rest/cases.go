@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/templates/cases_view"
 	"github.com/tomassar/judicial-collection-case-management/internal/utils"
-	"github.com/tomassar/judicial-collection-case-management/internal/views/cases_view"
 )
 
 // getCases returns a handler for GET /cases requests

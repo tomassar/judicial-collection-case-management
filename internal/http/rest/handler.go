@@ -8,24 +8,27 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/dashboard"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/http/middleware"
 )
 
 type handler struct {
-	cases   cases.Service
-	users   users.Service
-	auth    auth.Service
-	lawyers lawyers.Service
+	cases     cases.Service
+	users     users.Service
+	auth      auth.Service
+	lawyers   lawyers.Service
+	dashboard dashboard.Service
 }
 
-func NewHandler(cases cases.Service, users users.Service, auth auth.Service, lawyers lawyers.Service) *handler {
+func NewHandler(cases cases.Service, users users.Service, auth auth.Service, lawyers lawyers.Service, dashboard dashboard.Service) *handler {
 	return &handler{
-		cases:   cases,
-		users:   users,
-		auth:    auth,
-		lawyers: lawyers,
+		cases:     cases,
+		users:     users,
+		auth:      auth,
+		lawyers:   lawyers,
+		dashboard: dashboard,
 	}
 }
 
@@ -59,7 +62,7 @@ func (h *handler) Init() *gin.Engine {
 	router.POST("/signup", signup(h.auth))
 
 	//dashboard
-	router.GET("/dashboard", requireAuth, getDashboard())
+	router.GET("/dashboard", requireAuth, getDashboard(h.dashboard))
 
 	return router
 }

@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
+	"github.com/tomassar/judicial-collection-case-management/internal/templates/user"
 	"github.com/tomassar/judicial-collection-case-management/internal/utils"
-	"github.com/tomassar/judicial-collection-case-management/internal/views/user"
 )
 
 // getUserProfileByID returns a handler for GET /users/:id requests
