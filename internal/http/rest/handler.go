@@ -2,7 +2,6 @@ package rest
 
 import (
 	"context"
-	"errors"
 	"log/slog"
 	"net/http"
 
@@ -84,15 +83,4 @@ func getUserFromCtx(ctx context.Context) *users.User {
 	}
 
 	return user
-}
-
-var ErrLawyerIDNotfoundInContext = errors.New("lawyer not found in context")
-
-func getLawyerIDFromCtx(c *gin.Context) (uint, error) {
-	id, ok := c.Get("lawyerID")
-	if !ok {
-		return 0, ErrLawyerIDNotfoundInContext
-	}
-
-	return id.(uint), nil
 }

@@ -1,0 +1,22 @@
+package cases_view
+
+import "github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+
+templ List(c []*cases.Case) {
+    <table class="min-w-full bg-white">
+        <thead class="bg-gray-800 text-white">
+            <tr>
+                <th class="w-1/2 py-3 px-4 uppercase font-semibold text-sm">Debtor Name</th>
+                <th class="w-1/2 py-3 px-4 uppercase font-semibold text-sm">Status</th>
+            </tr>
+        </thead>
+        <tbody class="text-gray-700">
+            for _, cs := range c {
+                <tr>
+                    <td class="w-1/2 py-3 px-4 border-b">{ cs.DebtorName }</td>
+                    <td class="w-1/2 py-3 px-4 border-b">{ cs.Status }</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
