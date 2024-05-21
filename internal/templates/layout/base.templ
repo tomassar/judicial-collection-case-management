@@ -23,11 +23,9 @@ templ Base() {
         </head> 
         <body class="min-h-screen">
         <!-- top bar -->
-            <div class="w-full h-[50px] bg-yellow-900 flex gap-4 items-center justify-center">
-                <a href="/" class="text-lg text-blue-700">Home</a>
-                <a href="/about" class="text-blue-700">About</a>
-                <a href="/contact" class="text-blue-700">Contact</a>
-            </div>
+            @navbar()
+            /* Sidebar */
+            @sidebar()
             <main class="flex-grow container">
                 {children...}
             </main>
