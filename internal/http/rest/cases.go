@@ -28,9 +28,9 @@ func getCases(s cases.Service) gin.HandlerFunc {
 func createCase(s cases.Service) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var body *cases.CreateCaseReq
-		if err := ctx.ShouldBindJSON(&body); err != nil {
+		if err := ctx.BindJSON(&body); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
-				"error": "Failed to read body",
+				"error": err.Error(),
 			})
 			return
 		}
