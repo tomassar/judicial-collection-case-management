@@ -7,17 +7,15 @@ import (
 )
 
 type Case struct {
-	ID         uint   `gorm:"primarykey" json:"id"`
-	DebtorName string `json:"debtor_name"` // Nombre del deudor
-	Status     string `json:"status"`      // Estado actual del caso (por ejemplo: en proceso, resuelto, archivado, etc.)
-	//Documents    []string  // Lista de documentos relacionados con la causa
-	// Otros atributos que podrían ser útiles:
-	// - AttorneyName: Nombre del abogado a cargo del caso
-	// - Court: Tribunal al que pertenece el caso
-	// - NextHearingDate: Fecha de la próxima audiencia
-	// - Notes: Notas o comentarios adicionales sobre la causa
-	LawyerID  uint           `json:"lawyer_id"`
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
+	ID         uint           `gorm:"primarykey" json:"id"`
+	LawyerID   uint           `json:"lawyer_id"`
+	DebtorName string         `json:"debtor_name"` // Nombre del deudor
+	Status     string         `json:"status"`      // Estado actual del caso (por ejemplo: en proceso, resuelto, archivado, etc.)
+	Role       string         `json:"rol"`
+	Date       time.Time      `json:"date"`
+	Subject    string         `json:"subject"` // caratulado
+	Court      string         `json:"court"`   // tribunal
+	CreatedAt  time.Time      `json:"created_at"`
+	UpdatedAt  time.Time      `json:"updated_at"`
+	DeletedAt  gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 }
