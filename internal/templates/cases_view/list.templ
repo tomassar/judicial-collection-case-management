@@ -1,6 +1,7 @@
 package cases_view
 
 import "github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+import "fmt"
 
 templ List(c []*cases.Case) {
     <table class="min-w-full bg-white">
@@ -12,17 +13,30 @@ templ List(c []*cases.Case) {
                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Fecha</th>
                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Caratulado</th>
                 <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Tribunal</th>
+                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Acción</th>
             </tr>
         </thead>
         <tbody class="text-gray-700">
             for _, cs := range c {
-                <tr>
+                <tr 
+                    id={fmt.Sprintf("case-%d", cs.ID)} class="fade-me-out transition-all duration-500"
+                >
                     <td class="w-1/6 py-3 px-4 border-b">{ cs.DebtorName }</td>
                     <td class="w-1/6 py-3 px-4 border-b">{ cs.Status }</td>
                     <td class="w-1/6 py-3 px-4 border-b">{ cs.Role }</td>
                     <td class="w-1/6 py-3 px-4 border-b">{ cs.Date.Format("2006-01-02") }</td>
                     <td class="w-1/6 py-3 px-4 border-b">{ cs.Subject }</td>
                     <td class="w-1/6 py-3 px-4 border-b">{ cs.Court }</td>
+                    <td class="w-1/6 py-3 px-4 border-b">
+                        <button 
+                            class="w-[110px] h-[30px] bg-red-500 flex justify-center items-center hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-all duration-200" 
+                            hx-delete={fmt.Sprintf("/cases/%d",cs.ID)} 
+                            hx-target={fmt.Sprintf("#case-%d", cs.ID)} 
+                            hx-swap="outerHTML swap:0.3s"
+                        >
+                            Eliminar
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>

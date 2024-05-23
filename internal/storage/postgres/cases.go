@@ -40,3 +40,7 @@ func (r *casesRepository) FindAllByLawyerID(ctx context.Context, lawyerID uint) 
 
 	return ents, nil
 }
+
+func (r *casesRepository) Delete(ctx context.Context, id uint) error {
+	return r.db.Delete(&cases.Case{}, id).Error
+}

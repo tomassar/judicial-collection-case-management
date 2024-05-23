@@ -119,7 +119,7 @@ func Base() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</head><body class=\"min-h-screen\"><!-- top bar -->")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n                .fade-me-out.htmx-swapping {\n                opacity: 0;\n                transition: opacity 1s ease-out;\n                }\n            </style></head><body class=\"min-h-screen\"><!-- top bar -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
