@@ -47,7 +47,7 @@ func createCase(s cases.Service) gin.HandlerFunc {
 		err = s.CreateCase(ctx, body)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{
-				"error": "Failed to create case",
+				"error": err.Error(),
 			})
 			return
 		}

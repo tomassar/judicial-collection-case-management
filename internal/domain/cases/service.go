@@ -44,6 +44,10 @@ func (s *service) CreateCase(ctx context.Context, body *CreateCaseReq) error {
 	c := &Case{
 		DebtorName: body.DebtorName,
 		Status:     body.Status,
+		Role:       body.Role,
+		Date:       body.Date,
+		Subject:    body.Subject,
+		Court:      body.Court,
 		LawyerID:   body.LawyerID,
 	}
 
