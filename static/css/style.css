@@ -956,6 +956,10 @@ select {
   width: 100%;
 }
 
+.w-1\/6 {
+  width: 16.666667%;
+}
+
 .min-w-full {
   min-width: 100%;
 }

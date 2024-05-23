@@ -6,15 +6,23 @@ templ List(c []*cases.Case) {
     <table class="min-w-full bg-white">
         <thead class="bg-gray-800 text-white">
             <tr>
-                <th class="w-1/2 py-3 px-4 uppercase font-semibold text-sm">Debtor Name</th>
-                <th class="w-1/2 py-3 px-4 uppercase font-semibold text-sm">Status</th>
+                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Nombre del deudor</th>
+                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Rol</th>
+                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Fecha</th>
+                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Caratulado</th>
+                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Tribunal</th>
             </tr>
         </thead>
         <tbody class="text-gray-700">
             for _, cs := range c {
                 <tr>
-                    <td class="w-1/2 py-3 px-4 border-b">{ cs.DebtorName }</td>
-                    <td class="w-1/2 py-3 px-4 border-b">{ cs.Status }</td>
+                    <td class="w-1/6 py-3 px-4 border-b">{ cs.DebtorName }</td>
+                    <td class="w-1/6 py-3 px-4 border-b">{ cs.Status }</td>
+                    <td class="w-1/6 py-3 px-4 border-b">{ cs.Role }</td>
+                    <td class="w-1/6 py-3 px-4 border-b">{ cs.Date.Format("2006-01-02") }</td>
+                    <td class="w-1/6 py-3 px-4 border-b">{ cs.Subject }</td>
+                    <td class="w-1/6 py-3 px-4 border-b">{ cs.Court }</td>
                 </tr>
             }
         </tbody>
