@@ -12,6 +12,7 @@ import (
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/http/middleware"
+	"github.com/tomassar/judicial-collection-case-management/internal/templates/toast"
 )
 
 type handler struct {
@@ -32,9 +33,25 @@ func NewHandler(cases cases.Service, users users.Service, auth auth.Service, law
 	}
 }
 
+func customErrorHandler(c *gin.Context) {
+	c.Next()
+	if len(c.Errors) > 0 {
+		err := c.Errors.Last().Err
+		te, ok := err.(toast.Toast)
+		if !ok {
+			te = toast.Danger("there has been an unexpected error")
+		}
+		if te.Level != toast.SUCCESS {
+			c.Header("HX-Reswap", "none")
+		}
+		te.SetHXTriggerHeader(c)
+	}
+}
+
 // Init initializes the routes for the REST API
 func (h *handler) Init() *gin.Engine {
 	router := gin.Default()
+	router.Use(customErrorHandler)
 
 	//middlewares
 	injectUser := middleware.InjectUser(h.users, h.lawyers)
