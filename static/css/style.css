@@ -815,24 +815,16 @@ select {
   right: 0.75rem;
 }
 
+.right-\[20px\] {
+  right: 20px;
+}
+
 .top-0 {
   top: 0px;
 }
 
 .top-12 {
   top: 3rem;
-}
-
-.right-0 {
-  right: 0px;
-}
-
-.right-\[30px\] {
-  right: 30px;
-}
-
-.right-\[20px\] {
-  right: 20px;
 }
 
 .z-40 {
@@ -876,12 +868,12 @@ select {
   margin-inline-start: 0.75rem;
 }
 
-.mt-\[56px\] {
-  margin-top: 56px;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
+}
+
+.mt-\[56px\] {
+  margin-top: 56px;
 }
 
 .block {
@@ -924,32 +916,12 @@ select {
   height: 30px;
 }
 
-.h-\[calc\(100vh-50px\)\] {
-  height: calc(100vh - 50px);
-}
-
 .h-full {
   height: 100%;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.h-0 {
-  height: 0px;
-}
-
-.h-10 {
-  height: 2.5rem;
-}
-
-.h-\[40px\] {
-  height: 40px;
-}
-
-.h-\[60px\] {
-  height: 60px;
 }
 
 .min-h-screen {
@@ -980,12 +952,12 @@ select {
   width: 2rem;
 }
 
-.w-\[100vw\] {
-  width: 100vw;
-}
-
 .w-\[110px\] {
   width: 110px;
+}
+
+.w-\[150px\] {
+  width: 150px;
 }
 
 .w-\[200px\] {
@@ -994,26 +966,6 @@ select {
 
 .w-full {
   width: 100%;
-}
-
-.w-48 {
-  width: 12rem;
-}
-
-.w-0 {
-  width: 0px;
-}
-
-.w-24 {
-  width: 6rem;
-}
-
-.w-\[150\] {
-  width: 150;
-}
-
-.w-\[150px\] {
-  width: 150px;
 }
 
 .w-screen {
@@ -1415,11 +1367,6 @@ select {
   --tw-ring-opacity: 0.05;
 }
 
-.blur {
-  --tw-blur: blur(8px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -1434,14 +1381,14 @@ select {
   transition-duration: 150ms;
 }
 
-.transition-transform {
-  transition-property: transform;
+.transition-opacity {
+  transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
-.transition-opacity {
-  transition-property: opacity;
+.transition-transform {
+  transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1454,16 +1401,16 @@ select {
   transition-duration: 200ms;
 }
 
+.duration-300 {
+  transition-duration: 300ms;
+}
+
 .duration-500 {
   transition-duration: 500ms;
 }
 
 .duration-75 {
   transition-duration: 75ms;
-}
-
-.duration-300 {
-  transition-duration: 300ms;
 }
 
 .ease-in {
