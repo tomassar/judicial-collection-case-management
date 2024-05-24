@@ -28,13 +28,19 @@ templ Base() {
             </style>
         </head> 
         <body class="min-h-screen">
-        <!-- top bar -->
-            @navbar()
-            /* Sidebar */
-            @sidebar()
-            <main class="ml-[256px] mt-[56px] max-w-[calc(100vw-256px)] flex-grow container">
+            <main class="flex-grow container">
                 {children...}
             </main>
         </body>
     </html>
+}
+
+templ Layout() {
+    @Base(){
+        @navbar()
+        @sidebar()
+        <div class="ml-[256px] mt-[56px] max-w-[calc(100vw-256px)] flex-grow">
+            {children...}
+        </div>
+    }
 }

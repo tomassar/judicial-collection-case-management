@@ -1016,6 +1016,10 @@ select {
   width: 150px;
 }
 
+.w-screen {
+  width: 100vw;
+}
+
 .min-w-full {
   min-width: 100%;
 }

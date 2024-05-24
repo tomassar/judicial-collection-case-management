@@ -5,7 +5,7 @@ import "github.com/tomassar/judicial-collection-case-management/internal/templat
 import "github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
 
 templ Show(c []*cases.Case) {
-    @layout.Base(){
+    @layout.Layout(){
         <div class="p-10">
             <h1 class="text-xl text-blue-700"></h1>
             /* Add a case */

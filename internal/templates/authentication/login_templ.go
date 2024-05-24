@@ -25,7 +25,7 @@ func Login(fromProtected bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"h-[calc(100vh-50px)] w-[100vw] p-4 bg-base-300 shadow-xl flex justify-center items-center\"><div class=\"w-full flex justify-center items-center\"><form hx-post=\"/login\" hx-ext=\"json-enc\" class=\"rounded-xl flex flex-col gap-4 p-8\"><label class=\"flex flex-col justify-start gap-2\">Email: <input class=\"bg-slate-800 rounded-md text-white\" type=\"email\" name=\"email\" required autofocus")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"h-screen w-screen p-4 bg-base-300 shadow-xl flex justify-center items-center\"><div class=\"w-full flex justify-center items-center\"><form hx-post=\"/login\" hx-ext=\"json-enc\" class=\"rounded-xl flex flex-col gap-4 p-8\"><label class=\"flex flex-col justify-start gap-2\">Email: <input class=\"bg-slate-800 rounded-md text-white\" type=\"email\" name=\"email\" required autofocus")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
