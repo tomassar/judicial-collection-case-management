@@ -27,6 +27,7 @@ const (
 type Service interface {
 	SignUp(ctx *gin.Context, body *SignUpReq) error
 	Login(ctx *gin.Context, body *LoginReq) error
+	Logout(ctx *gin.Context)
 }
 
 type service struct {
@@ -92,6 +93,10 @@ func (s *service) Login(ctx *gin.Context, body *LoginReq) error {
 	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 
 	return nil
+}
+
+func (s *service) Logout(ctx *gin.Context) {
+	ctx.SetCookie("Authorization", "", -1, "", "", false, true)
 }
 
 func NewAuth() {

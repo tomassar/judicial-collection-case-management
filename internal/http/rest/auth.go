@@ -88,3 +88,15 @@ func signup(s auth.Service) gin.HandlerFunc {
 		ctx.Status(http.StatusOK)
 	}
 }
+
+// logout returns a handler for POST /logout requests
+func logout(s auth.Service) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		s.Logout(c)
+
+		c.Header("HX-Redirect", "/login")
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Logout successful",
+		})
+	}
+}

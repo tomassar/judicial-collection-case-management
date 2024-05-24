@@ -61,6 +61,7 @@ func (h *handler) Init() *gin.Engine {
 	router.POST("/login", login(h.auth))
 	router.GET("/signup", injectUser, getSignup())
 	router.POST("/signup", signup(h.auth))
+	router.POST("/logout", logout(h.auth))
 
 	//dashboard
 	router.GET("/dashboard", requireAuth, getDashboard(h.dashboard))

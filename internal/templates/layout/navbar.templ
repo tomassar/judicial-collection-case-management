@@ -30,7 +30,10 @@ templ navbar() {
                             <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo"/>
                         </button>
                         <div id="dropdown-user" class="absolute right-[20px] w-[150px] ring-1 ring-black ring-opacity-5 opacity-0 mt-2 bg-white rounded-lg shadow-xl transition-opacity duration-300 ease-in-out">
-                            <button class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                            <button 
+                                class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                                hx-post="/logout"
+                            >
                                 Cerrar Sesión
                             </button>
                         </div>
