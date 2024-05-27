@@ -44,7 +44,6 @@ func (t Toast) Error() string {
 }
 
 func (t Toast) jsonify() (string, error) {
-	t.Message = t.Error()
 	eventMap := map[string]Toast{}
 	eventMap["makeToast"] = t
 	jsonData, err := json.Marshal(eventMap)

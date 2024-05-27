@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
 	"github.com/tomassar/judicial-collection-case-management/internal/templates/cases_view"
+	"github.com/tomassar/judicial-collection-case-management/internal/templates/toast"
 	"github.com/tomassar/judicial-collection-case-management/internal/utils"
 )
 
@@ -29,9 +30,6 @@ func getCases(s cases.Service) gin.HandlerFunc {
 func createCase(s cases.Service) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var body *cases.CreateCaseReq
-		/* ctx.Error(toast.Warning("This a toast testing message"))
-		return */
-		//toast.SetHXTriggerHeader(ctx, toast.Warning("This a toast testing message"))
 		if err := ctx.BindJSON(&body); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
@@ -56,6 +54,7 @@ func createCase(s cases.Service) gin.HandlerFunc {
 			return
 		}
 
+		toast.Success(ctx, "Successfully signed up to the newsletter!")
 		ctx.Status(http.StatusOK)
 	}
 }

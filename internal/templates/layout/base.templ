@@ -25,12 +25,69 @@ templ Base() {
                 opacity: 0;
                 transition: opacity 1s ease-out;
                 }
+
+                #toast-container {
+                    position: fixed;
+                    bottom: 0;
+                    left: calc(50vw - 143px);
+                    z-index: 9999;
+                }
+
+               .toast {
+                    display: flex;
+                    align-items: center;
+                    background-color: #333;
+                    color: #fff;
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                    animation: fadeInOut 5s;
+                    opacity: 0;
+                }
+
+               @keyframes fadeInOut {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(0px);
+                    }
+                    15% {
+                        opacity: 1;
+                        transform: translateY(-60px);
+                    }
+                    85% {
+                        opacity: 1;
+                        transform: translateY(-60px);
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: translateY(0px);
+                    }
+                }
+
+                .toast-info {
+                    background-color: #17a2b8;
+                }
+
+                .toast-success {
+                    background-color: #28a745;
+                }
+
+                .toast-warning {
+                    background-color: #ffc107;
+                    color: #333;
+                }
+
+                .toast-danger {
+                    background-color: #dc3545;
+                }
             </style>
         </head> 
         <body class="min-h-screen">
             <main class="flex-grow container">
                 {children...}
             </main>
+            <section id="toast-container"></section>
+            <script src="/static/script/toast.js"></script>
         </body>
     </html>
 }

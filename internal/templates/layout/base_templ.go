@@ -119,7 +119,7 @@ func Base() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n                .fade-me-out.htmx-swapping {\n                opacity: 0;\n                transition: opacity 1s ease-out;\n                }\n            </style></head><body class=\"min-h-screen\"><main class=\"flex-grow container\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n                .fade-me-out.htmx-swapping {\n                opacity: 0;\n                transition: opacity 1s ease-out;\n                }\n\n                #toast-container {\n                    position: fixed;\n                    bottom: 0;\n                    left: calc(50vw - 143px);\n                    z-index: 9999;\n                }\n\n               .toast {\n                    display: flex;\n                    align-items: center;\n                    background-color: #333;\n                    color: #fff;\n                    padding: 10px;\n                    border-radius: 5px;\n                    margin-bottom: 10px;\n                    animation: fadeInOut 5s;\n                    opacity: 0;\n                }\n\n               @keyframes fadeInOut {\n                    0% {\n                        opacity: 0;\n                        transform: translateY(0px);\n                    }\n                    15% {\n                        opacity: 1;\n                        transform: translateY(-60px);\n                    }\n                    85% {\n                        opacity: 1;\n                        transform: translateY(-60px);\n                    }\n                    100% {\n                        opacity: 0;\n                        transform: translateY(0px);\n                    }\n                }\n\n                .toast-info {\n                    background-color: #17a2b8;\n                }\n\n                .toast-success {\n                    background-color: #28a745;\n                }\n\n                .toast-warning {\n                    background-color: #ffc107;\n                    color: #333;\n                }\n\n                .toast-danger {\n                    background-color: #dc3545;\n                }\n            </style></head><body class=\"min-h-screen\"><main class=\"flex-grow container\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -127,7 +127,7 @@ func Base() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main><section id=\"toast-container\"></section><script src=\"/static/script/toast.js\"></script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
