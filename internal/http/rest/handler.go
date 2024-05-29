@@ -67,6 +67,7 @@ func (h *handler) Init() *gin.Engine {
 	//cases
 	router.GET("/cases", requireAuth, getCases(h.cases))
 	router.POST("/cases", injectUser, createCase(h.cases))
+	router.GET("/cases/:id", requireAuth, getCase(h.cases))
 	router.DELETE("/cases/:id", requireAuth, deleteCase(h.cases))
 
 	//users

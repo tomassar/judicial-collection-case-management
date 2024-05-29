@@ -1,0 +1,13 @@
+package cases_view
+
+import "github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
+import "github.com/tomassar/judicial-collection-case-management/internal/templates/layout"
+
+templ Detail(c *cases.Case) {
+    @layout.Layout(){
+        <div>
+            <h1>{c.DebtorName}</h1>
+            <p>{c.Subject}</p>
+        </div>
+    }
+}

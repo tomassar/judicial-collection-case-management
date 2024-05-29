@@ -815,6 +815,10 @@ select {
   right: 0.75rem;
 }
 
+.right-\[-70px\] {
+  right: -70px;
+}
+
 .right-\[20px\] {
   right: 20px;
 }
@@ -827,24 +831,8 @@ select {
   top: 3rem;
 }
 
-.right-0 {
-  right: 0px;
-}
-
-.right-\[-100px\] {
-  right: -100px;
-}
-
-.right-\[-70px\] {
-  right: -70px;
-}
-
 .top-\[10px\] {
   top: 10px;
-}
-
-.top-\[-10px\] {
-  top: -10px;
 }
 
 .z-40 {
@@ -853,10 +841,6 @@ select {
 
 .z-50 {
   z-index: 50;
-}
-
-.col-span-1 {
-  grid-column: span 1 / span 1;
 }
 
 .my-4 {
@@ -914,10 +898,6 @@ select {
 
 .table {
   display: table;
-}
-
-.grid {
-  display: grid;
 }
 
 .hidden {
@@ -1045,10 +1025,6 @@ select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-}
-
-.grid-cols-7 {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -1200,9 +1176,8 @@ select {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-red-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
+.p-0 {
+  padding: 0px;
 }
 
 .p-10 {
@@ -1223,10 +1198,6 @@ select {
 
 .p-8 {
   padding: 2rem;
-}
-
-.p-0 {
-  padding: 0px;
 }
 
 .px-2 {
@@ -1442,6 +1413,10 @@ select {
   transition-duration: 150ms;
 }
 
+.duration-100 {
+  transition-duration: 100ms;
+}
+
 .duration-150 {
   transition-duration: 150ms;
 }
@@ -1460,14 +1435,6 @@ select {
 
 .duration-75 {
   transition-duration: 75ms;
-}
-
-.duration-100 {
-  transition-duration: 100ms;
-}
-
-.duration-0 {
-  transition-duration: 0s;
 }
 
 .ease-in {
@@ -1499,11 +1466,6 @@ select {
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-gray-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1529,10 +1491,6 @@ select {
 .focus\:ring-gray-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(209 213 219 / var(--tw-ring-opacity));
-}
-
-.group:hover .group-hover\:block {
-  display: block;
 }
 
 .group:hover .group-hover\:text-gray-400 {

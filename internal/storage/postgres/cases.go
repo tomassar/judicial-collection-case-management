@@ -44,3 +44,13 @@ func (r *casesRepository) FindAllByLawyerID(ctx context.Context, lawyerID uint) 
 func (r *casesRepository) Delete(ctx context.Context, id uint) error {
 	return r.db.Delete(&cases.Case{}, id).Error
 }
+
+func (r *casesRepository) FindByID(ctx context.Context, id uint) (*cases.Case, error) {
+	var ent cases.Case
+	err := r.db.Model(&cases.Case{}).Where("id = ?", id).First(&ent).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &ent, nil
+}

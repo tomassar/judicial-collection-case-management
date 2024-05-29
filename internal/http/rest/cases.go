@@ -59,6 +59,30 @@ func createCase(s cases.Service) gin.HandlerFunc {
 	}
 }
 
+// getCase returns a handler for GET /cases/:id requests
+func getCase(s cases.Service) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		idInt, err := strconv.ParseUint(id, 10, 32)
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c, err := s.GetCase(ctx, uint(idInt))
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		utils.RenderView(ctx, cases_view.Detail(c))
+	}
+}
+
 // delete case returns a handler for DELETE /cases/:id requests
 func deleteCase(s cases.Service) gin.HandlerFunc {
 	return func(ctx *gin.Context) {

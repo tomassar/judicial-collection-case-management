@@ -11,12 +11,14 @@ type Repository interface {
 	FindAll() ([]*Case, error)
 	Create(c *Case) error
 	Delete(ctx context.Context, id uint) error
+	FindByID(ctx context.Context, id uint) (*Case, error)
 }
 
 type Service interface {
 	GetLawyerCases(ctx context.Context) ([]*Case, error)
 	CreateCase(ctx context.Context, body *CreateCaseReq) error
 	DeleteCase(ctx context.Context, id uint) error
+	GetCase(ctx context.Context, id uint) (*Case, error)
 }
 
 type service struct {
@@ -58,4 +60,8 @@ func (s *service) CreateCase(ctx context.Context, body *CreateCaseReq) error {
 
 func (s *service) DeleteCase(ctx context.Context, id uint) error {
 	return s.repo.Delete(ctx, id)
+}
+
+func (s *service) GetCase(ctx context.Context, id uint) (*Case, error) {
+	return s.repo.FindByID(ctx, id)
 }
