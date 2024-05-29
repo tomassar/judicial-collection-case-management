@@ -54,7 +54,7 @@ func createCase(s cases.Service) gin.HandlerFunc {
 			return
 		}
 
-		toast.Success(ctx, "Successfully signed up to the newsletter!")
+		toast.Success(ctx, "Causa agregada!")
 		ctx.Status(http.StatusOK)
 	}
 }
@@ -79,6 +79,7 @@ func deleteCase(s cases.Service) gin.HandlerFunc {
 			return
 		}
 
+		toast.Success(ctx, "Causa eliminada exitosamente!")
 		ctx.Status(http.StatusOK)
 	}
 }

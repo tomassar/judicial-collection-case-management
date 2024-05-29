@@ -26,7 +26,7 @@ func List(c []*cases.Case) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<table class=\"min-w-full bg-white\"><thead class=\"bg-gray-800 text-white\"><tr><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Nombre del deudor</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Estado</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Rol</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Fecha</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Caratulado</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Tribunal</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Acción</th></tr></thead> <tbody class=\"text-gray-700\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<table class=\"min-w-full bg-white rounded-lg\"><thead class=\"bg-gray-800 text-white\"><tr><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Nombre del deudor</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Estado</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Rol</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Fecha</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Caratulado</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Tribunal</th><th class=\"w-1/6 py-3 px-4 uppercase font-semibold text-sm\">Acción</th></tr></thead> <tbody class=\"text-gray-700\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -44,7 +44,7 @@ func List(c []*cases.Case) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"fade-me-out transition-all duration-500\"><td class=\"w-1/6 py-3 px-4 border-b\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"group fade-me-out transition-all duration-500 hover:bg-gray-100 cursor-pointer transition duration-100 relative\"><td class=\"w-1/6 py-3 px-4 border-b\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -148,7 +148,7 @@ func List(c []*cases.Case) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML swap:0.3s\">Eliminar</button></td></tr>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML swap:0.3s\">Eliminar</button></td><td class=\"relative\"><div class=\"absolute right-[-70px] top-[10px] rounded-lg bg-slate-700 text-white px-2 py-1 opacity-0 group-hover:opacity-100 transition duration-200\">Abrir</div></td></tr>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
