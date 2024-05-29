@@ -5,9 +5,31 @@ import "github.com/tomassar/judicial-collection-case-management/internal/templat
 
 templ Detail(c *cases.Case) {
     @layout.Layout(){
-        <div>
-            <h1>{c.DebtorName}</h1>
-            <p>{c.Subject}</p>
-        </div>
+            <div class="bg-white rounded-lg overflow-hidden p-10">
+                <div class="p-6">
+                    <h1 class="text-3xl font-bold text-black">{c.DebtorName}</h1>
+                    <p class="mt-2 text-blue-700 text-lg">{c.Subject}</p>
+                </div>
+                <div class="p-6">
+                    <div class="flex gap-24">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-700">Case Details</h2>
+                            <div class="mt-4 space-y-2">
+                                <p class="text-gray-600"><strong>Status:</strong> {c.Status}</p>
+                                <p class="text-gray-600"><strong>Role:</strong> {c.Role}</p>
+                                <p class="text-gray-600"><strong>Date:</strong> {c.Date.Format("January 2, 2006")}</p>
+                                <p class="text-gray-600"><strong>Court:</strong> {c.Court}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-700">Additional Information</h2>
+                            <div class="mt-4 space-y-2">
+                                <p class="text-gray-600"><strong>Case Created At:</strong> {c.CreatedAt.Format("January 2, 2006")}</p>
+                                <p class="text-gray-600"><strong>Last Updated At:</strong> {c.UpdatedAt.Format("January 2, 2006")}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     }
 }
