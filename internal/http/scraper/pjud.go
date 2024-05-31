@@ -3,6 +3,7 @@ package scraper
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/chromedp/chromedp"
 )
@@ -18,7 +19,7 @@ type FormData struct {
 
 func FillForm(ctx context.Context, data FormData) error {
 	// Define the selectors
-	thirdDivButtonSel := `div.container:nth-child(3) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)`
+	thirdDivButtonSel := `div.container:nth-child(4) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)`
 	competenciaSel := `#competencia`
 	corteSel := `#conCorte`
 	tribunalSel := `#conTribunal`
@@ -35,19 +36,18 @@ func FillForm(ctx context.Context, data FormData) error {
 		chromedp.Click(thirdDivButtonSel),
 		// Wait for the form to be visible
 		chromedp.WaitVisible(competenciaSel),
-
 		// Fill out the form fields
-		chromedp.SetValue(competenciaSel, data.Competencia),
-		chromedp.SetValue(corteSel, data.Corte),
-		chromedp.SetValue(tribunalSel, data.Tribunal),
-		chromedp.SetValue(libroTipoSel, data.LibroTipo),
-		chromedp.SetValue(rolSel, fmt.Sprint(data.Rol)),
-		chromedp.SetValue(yearSel, fmt.Sprint(data.Year)),
+		chromedp.SetValue(competenciaSel, data.Competencia, chromedp.ByQuery),
+		/* 		chromedp.SetValue(corteSel, data.Corte),
+		   		chromedp.SetValue(tribunalSel, data.Tribunal),
+		   		chromedp.SetValue(libroTipoSel, data.LibroTipo),
+		   		chromedp.SetValue(rolSel, fmt.Sprint(data.Rol)),
+		   		chromedp.SetValue(yearSel, fmt.Sprint(data.Year)), */
 
 		// Click the submit button
-		chromedp.Click(submitSel),
+		/* chromedp.Click(submitSel), */
 
 		// Wait for navigation to complete (or for a specific element to be visible)
-		chromedp.WaitVisible(`#resultDiv`, chromedp.ByID),
+		/* chromedp.WaitVisible(`#resultDiv`, chromedp.ByID), */
 	)
 }
