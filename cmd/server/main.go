@@ -47,8 +47,8 @@ func initService() {
 	data := scraper.FormData{
 		Competencia: "3",
 		Corte:       "50",
-		Tribunal:    "197",
-		LibroTipo:   "C",
+		Tribunal:    "197", //198, 406
+		LibroTipo:   "C",   //E
 		Rol:         2,
 		Year:        2024,
 	}
