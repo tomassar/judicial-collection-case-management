@@ -1,21 +1,18 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"log"
 	"os"
 
-	"github.com/chromedp/chromedp"
 	"github.com/joho/godotenv"
 	"github.com/tomassar/judicial-collection-case-management/internal/database"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/auth"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/dashboard"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/sync_cases"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/http/rest"
-	"github.com/tomassar/judicial-collection-case-management/internal/http/scraper"
 	"github.com/tomassar/judicial-collection-case-management/internal/storage/postgres"
 )
 
@@ -28,34 +25,6 @@ func initService() {
 	err := godotenv.Load()
 	if err != nil {
 		panic("failed to load env variables")
-	}
-
-	opts := append(chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.Flag("headless", false),
-		chromedp.Flag("disable-gpu", false),
-	)
-
-	// Create a new allocator context
-	allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
-	defer cancel()
-
-	// Create a new context
-	ctx, cancel := chromedp.NewContext(allocCtx)
-	defer cancel()
-
-	// Create a new data instance
-	data := scraper.FormData{
-		Competencia: "3",
-		Corte:       "50",
-		Tribunal:    "197", //198, 406
-		LibroTipo:   "C",   //E
-		Rol:         2,
-		Year:        2024,
-	}
-
-	// Run the form filling function
-	if err := scraper.FillForm(ctx, data); err != nil {
-		log.Fatal(err)
 	}
 
 	fmt.Println("DB: ", os.Getenv("DB"))
@@ -72,9 +41,10 @@ func initService() {
 	lawyerService := lawyers.NewLawyerService(storage.Lawyers)
 	authService := auth.NewService(userService, lawyerService)
 	dashboardService := dashboard.NewService(caseService)
+	sync_cases := sync_cases.NewService()
 
 	router := rest.
-		NewHandler(caseService, userService, authService, lawyerService, dashboardService).
+		NewHandler(caseService, userService, authService, lawyerService, dashboardService, sync_cases).
 		Init()
 
 	router.Run(os.Getenv("HOST_ADDR"))

@@ -10,26 +10,30 @@ import (
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/cases"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/dashboard"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/lawyers"
+	"github.com/tomassar/judicial-collection-case-management/internal/domain/sync_cases"
 	"github.com/tomassar/judicial-collection-case-management/internal/domain/users"
 	"github.com/tomassar/judicial-collection-case-management/internal/http/middleware"
 	"github.com/tomassar/judicial-collection-case-management/internal/templates/toast"
 )
 
+// TODO: export this and remove NewHandler since its creating param hell
 type handler struct {
-	cases     cases.Service
-	users     users.Service
-	auth      auth.Service
-	lawyers   lawyers.Service
-	dashboard dashboard.Service
+	cases      cases.Service
+	users      users.Service
+	auth       auth.Service
+	lawyers    lawyers.Service
+	dashboard  dashboard.Service
+	sync_cases sync_cases.Service
 }
 
-func NewHandler(cases cases.Service, users users.Service, auth auth.Service, lawyers lawyers.Service, dashboard dashboard.Service) *handler {
+func NewHandler(cases cases.Service, users users.Service, auth auth.Service, lawyers lawyers.Service, dashboard dashboard.Service, sync_cases sync_cases.Service) *handler {
 	return &handler{
-		cases:     cases,
-		users:     users,
-		auth:      auth,
-		lawyers:   lawyers,
-		dashboard: dashboard,
+		cases:      cases,
+		users:      users,
+		auth:       auth,
+		lawyers:    lawyers,
+		dashboard:  dashboard,
+		sync_cases: sync_cases,
 	}
 }
 
@@ -83,6 +87,9 @@ func (h *handler) Init() *gin.Engine {
 
 	//dashboard
 	router.GET("/dashboard", requireAuth, getDashboard(h.dashboard))
+
+	//sync
+	router.POST("/sync", requireAuth, syncCase(h.sync_cases))
 
 	return router
 }
