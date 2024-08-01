@@ -78,6 +78,9 @@ templ Show(c []*cases.Case) {
                 <h2 class="text-2xl font-bold mb-6">Causas</h2>
                 @cases_view.List(c)
             </div>
+            <div>
+                <button hx-post="/sync" hx-swap="none" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Sincronizar</button>
+            </div>
         </div>
     }
 }
