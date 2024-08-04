@@ -19,7 +19,7 @@ type FormData struct {
 
 func FillForm(ctx context.Context, data FormData) error {
 	// Define the selectors
-	thirdDivButtonSel := `div.container:nth-child(3) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > button:nth-child(1)`
+	thirdDivButtonSel := `html body.landing div div#page-wrapper section.banner div.inner.tipo div.container.hidden-xs div.row div.col-sm-4 div#focus.dropdown button.dropbtn`
 	competenciaSel := `html body div.wrapper div#content div#contMain div.container-4 div.card.shadow.mb-4 div.cajaContentIzq.card.border-left-success.shadow.h-100.py-2 section.row div.panel-body2 div div.tab-content.hidden-sm.hidden-xs div#busRit.tab-pane.fade.in.active div.jumboTabs form#formConsulta div.form-group.col-md-4 select#competencia.form-control`
 	corteSel := `html body div.wrapper div#content div#contMain div.container-4 div.card.shadow.mb-4 div.cajaContentIzq.card.border-left-success.shadow.h-100.py-2 section.row div.panel-body2 div div.tab-content.hidden-sm.hidden-xs div#busRit.tab-pane.fade.in.active div.jumboTabs form#formConsulta div.form-group.col-md-4 select#conCorte.form-control`
 	tribunalSel := `html body div.wrapper div#content div#contMain div.container-4 div.card.shadow.mb-4 div.cajaContentIzq.card.border-left-success.shadow.h-100.py-2 section.row div.panel-body2 div div.tab-content.hidden-sm.hidden-xs div#busRit.tab-pane.fade.in.active div.jumboTabs form#formConsulta div.form-group.col-md-4 select#conTribunal.form-control`

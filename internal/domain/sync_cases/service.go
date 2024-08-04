@@ -37,6 +37,8 @@ func (s *service) SyncCases(ctx context.Context) error {
 		Corte:       "50",
 		Tribunal:    "197", //198, 406
 		LibroTipo:   "C",   //E
+		Rol:         2,
+		Year:        2024,
 	})
 
 	return nil
